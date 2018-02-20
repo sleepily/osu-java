@@ -9,7 +9,6 @@ import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
 import com.sleepingdreamlessly.osu.objects.std.OsuHitCircle;
-import com.sleepingdreamlessly.osu.rulesets.std.HitCircleProperties;
 import com.sleepingdreamlessly.osu.rulesets.std.UI;
 
 import java.awt.*;
@@ -81,11 +80,9 @@ public class Game implements Runnable
 		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2700));
 		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2800));
 		
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 140, 200, 4000, true));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 230, 214, 4200));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 310, 134, 4400));
-		
-		new HitCircleProperties(this).getOsuComboNumbers();
+		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 140, 200, 4000, 1));
+		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 230, 214, 4200, 2));
+		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 310, 134, 4400, 3));
 		
 		gameCamera = new GameCamera(this, 0, 0);
 		handler = new Handler(this);

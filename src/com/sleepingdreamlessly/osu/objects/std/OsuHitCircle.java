@@ -25,13 +25,13 @@ public class OsuHitCircle extends OsuHitObject
 		this.TYPE = "std";
 	}
 	
-	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time, boolean isNewCombo)
+	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time, int combo)
 	{
 		super(game, id, pos_x, pos_y, time);
 		this.approachCircle = Assets.approachcircle;
 		this.hitcircleoverlay = Assets.hitcircleoverlay;
-		this.sprite_combo = Assets.font_combo_numbers[1];
-		this.isNewCombo = isNewCombo;
+		this.sprite_combo = Assets.font_combo_numbers[combo % 10];
+		this.isNewCombo = (combo == 1);
 		this.TYPE = "std";
 	}
 	

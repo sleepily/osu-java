@@ -1,11 +1,1 @@
-
-*.wav
-*.png
-out/production/osu!java/skins/funorange/Thumbs.db
-*.jpg
-*.mp3
-out/production/osu!java/skins/funorange/Skin - crystallize.ini
-*.class
-*.class
-out/production/osu!java/songs/cYsmix feat. Emmy - Tear Rain (jonathanlfj) [Insane].osu
-out/production/osu!java/songs/cYsmix feat. Emmy - Tear Rain (jonathanlfj) [Insane].osu
+out/

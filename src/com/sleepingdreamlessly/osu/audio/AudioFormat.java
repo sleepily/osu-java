@@ -2,8 +2,17 @@ package com.sleepingdreamlessly.osu.audio;
 
 public class AudioFormat
 {
-	public static final String WAV = ".wav";
-	public static final String MP3 = ".mp3";
-	public static final String OGG = ".ogg";
-	public static final String FLAC = ".flac";
+	public static String ID, NAME;
+	
+	public AudioFormat(String id)
+	{
+		ID = id;
+		
+		NAME =
+			(id == "wav") ? "Waveform Audio File Format" :
+			(id == "mp3") ? "MP3" :
+			(id == "flac") ? "Free Lossless Audio Codec" :
+			(id == "ogg") ? "Ogg Vorbis" :
+			"unknown";
+	}
 }
