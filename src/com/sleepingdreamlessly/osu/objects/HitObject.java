@@ -1,10 +1,8 @@
 package com.sleepingdreamlessly.osu.objects;
 
 import com.sleepingdreamlessly.osu.Game;
-import com.sleepingdreamlessly.osu.rulesets.std.UI;
+import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.utils.Vector2;
-
-import java.awt.*;
 
 public class HitObject extends GameObject
 {

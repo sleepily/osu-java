@@ -28,34 +28,45 @@ public class Sprite
 		this.size = this.i.getWidth(null);
 	}
 	
-	public void drawCenteredWithFixedSize(Game game, int x, int y, double size, float opacity)
+	/*
+		https://stackoverflow.com/questions/8639567/java-rotating-images#8639615
+			double rotationRequired = Math.toRadians (45);
+			double locationX = image.getWidth() / 2;
+			double locationY = image.getHeight() / 2;
+			AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+			
+			// Drawing the rotated image at the required drawing locations
+			g2d.drawImage(op.filter(image, null), drawLocationX, drawLocationY, null);
+	 */
+	
+	public void drawCenteredWithSize(Game game, int x, int y, double size, float opacity)
 	{
-		Graphics2D g2 = (Graphics2D) game.getGraphics();
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+		Image image_scaled = i.getScaledInstance((int)size, (int)size, Image.SCALE_SMOOTH);
 		
-		Image scaled = i.getScaledInstance((int)size, (int)size, Image.SCALE_SMOOTH);
-		int scaledSize = scaled.getWidth(null);
-		
-		g2.drawImage(
-				scaled,
-				x - (scaledSize / 2),
-				y - (scaledSize / 2),
-				null
-				);
+		draw(game, x, y, image_scaled, opacity);
 	}
 	
-	public void drawCentered(Game game, int x, int y, double scale, float opacity)
+	public void drawCenteredWithScale(Game game, int x, int y, double scale, float opacity)
+	{
+		Image image_scaled =
+			i.getScaledInstance(
+				(int)(i.getWidth(null) * scale),
+				(int)(i.getHeight(null) * scale),
+				Image.SCALE_SMOOTH
+			);
+		draw(game, x, y, image_scaled, opacity);
+	}
+	
+	private void draw(Game game, int x, int y, Image image, float opacity)
 	{
 		Graphics2D g2 = (Graphics2D) game.getGraphics();
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 		
-		Image scaledImage = i.getScaledInstance((int)(i.getWidth(null) * scale), (int)(i.getHeight(null) * scale), Image.SCALE_SMOOTH);
-		int scaledSize = scaledImage.getWidth(null);
-		
 		g2.drawImage(
-			scaledImage,
-			x - (scaledSize / 2),
-			y - (scaledSize / 2),
+			image,
+			x - (image.getWidth(null) / 2),
+			y - (image.getHeight(null) / 2),
 			null
 		);
 	}

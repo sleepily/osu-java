@@ -9,7 +9,7 @@ import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
 import com.sleepingdreamlessly.osu.objects.std.OsuHitCircle;
-import com.sleepingdreamlessly.osu.rulesets.std.UI;
+import com.sleepingdreamlessly.osu.rulesets.UI;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

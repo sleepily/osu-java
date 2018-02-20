@@ -1,4 +1,4 @@
-package com.sleepingdreamlessly.osu.rulesets.std;
+package com.sleepingdreamlessly.osu.rulesets;
 
 import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.utils.Vector2;

@@ -2,7 +2,7 @@ package com.sleepingdreamlessly.osu.objects.mania;
 
 import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.objects.HitObject;
-import com.sleepingdreamlessly.osu.rulesets.std.UI;
+import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.utils.Vector2;
 
 public class ManiaHitObject extends HitObject
@@ -25,7 +25,7 @@ public class ManiaHitObject extends HitObject
 	
 	public void render(UI ui)
 	{
-		this.sprite.drawCentered(
+		this.sprite.drawCenteredWithScale(
 			this.game,
 			(int)((pos.x - 2) * 60 + ui.getJudgementLine().x),
 			(int)(pos.y),
