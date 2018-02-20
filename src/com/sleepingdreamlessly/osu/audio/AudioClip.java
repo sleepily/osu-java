@@ -1,7 +1,11 @@
 package com.sleepingdreamlessly.osu.audio;
 
-import com.sleepingdreamlessly.osu.graphics.Assets;
+import com.sleepingdreamlessly.osu.audio.formats.AudioFormat;
+import com.sleepingdreamlessly.osu.audio.formats.AudioFormats;
+import com.sleepingdreamlessly.osu.assets.Assets;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import java.io.File;
 
 public class AudioClip
@@ -24,6 +28,23 @@ public class AudioClip
 				continue;
 			
 			return file;
+		}
+		
+		return null;
+	}
+	
+	/*
+		Convert file into AudioStream
+	 */
+	public AudioInputStream getAudioStream()
+	{
+		try
+		{
+			return AudioSystem.getAudioInputStream(file);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 		
 		return null;

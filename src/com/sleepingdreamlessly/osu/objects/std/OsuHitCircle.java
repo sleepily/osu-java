@@ -1,7 +1,7 @@
 package com.sleepingdreamlessly.osu.objects.std;
 
 import com.sleepingdreamlessly.osu.Game;
-import com.sleepingdreamlessly.osu.graphics.Assets;
+import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.objects.OsuHitObject;
 import com.sleepingdreamlessly.osu.rulesets.std.CircleSize;
@@ -30,7 +30,7 @@ public class OsuHitCircle extends OsuHitObject
 		super(game, id, pos_x, pos_y, time);
 		this.approachCircle = Assets.approachcircle;
 		this.hitcircleoverlay = Assets.hitcircleoverlay;
-		this.sprite_combo = Assets.font_combo_numbers[combo % 10];
+		this.sprite_combo = Assets.font_default_numbers[combo % 10];
 		this.isNewCombo = (combo == 1);
 		this.TYPE = "std";
 	}
@@ -47,14 +47,14 @@ public class OsuHitCircle extends OsuHitObject
 			(int)Utils.map(this.pos.y, 0, ui.getBaseSize().y, 0, ui.getScreenVector().y)
 		);
 		
-		this.hitcircleoverlay.drawCenteredWithFixedSize(
+		this.sprite.drawCenteredWithFixedSize(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
 			CircleSize.circleSize_hitCircle(game.CircleSize),
 			this.alpha
 		);
-		this.sprite.drawCenteredWithFixedSize(
+		this.hitcircleoverlay.drawCenteredWithFixedSize(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
@@ -65,7 +65,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
-			1f,
+			64f / CircleSize.circleSize_hitCircle(game.CircleSize),
 			this.alpha
 		);
 		this.approachCircle.drawCenteredWithFixedSize(

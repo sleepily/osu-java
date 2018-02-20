@@ -1,4 +1,4 @@
-package com.sleepingdreamlessly.osu.audio;
+package com.sleepingdreamlessly.osu.audio.formats;
 
 public class AudioFormat
 {

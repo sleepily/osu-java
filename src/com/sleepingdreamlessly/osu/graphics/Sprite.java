@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu.graphics;
 
 import com.sleepingdreamlessly.osu.Game;
+import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.utils.ImageLoader;
 
 import java.awt.*;

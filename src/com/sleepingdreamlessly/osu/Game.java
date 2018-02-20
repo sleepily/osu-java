@@ -1,7 +1,7 @@
 package com.sleepingdreamlessly.osu;
 
 import com.sleepingdreamlessly.osu.display.Display;
-import com.sleepingdreamlessly.osu.graphics.Assets;
+import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.input.KeyManager;

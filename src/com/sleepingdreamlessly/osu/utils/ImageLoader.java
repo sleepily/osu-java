@@ -11,6 +11,9 @@ public class ImageLoader
 	{
 		try
 		{
+			if (!f.exists())
+				return null;
+			
 			return ImageIO.read(f);
 		}
 		catch (IOException e)
