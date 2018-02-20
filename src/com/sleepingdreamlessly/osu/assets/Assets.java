@@ -10,9 +10,9 @@ public class Assets
 	// general
 	private static ArrayList<Sprite> _sprites = new ArrayList<>();
 	
-	private static String name_skin = "dracula_final";
+	private static String name_skin = "dracula_final"; // @TODO: read this from (osu) ini
 	private static String path_skin = "\\res\\skins\\" + name_skin + "\\";
-	private static String name_font_default = "default";
+	private static String name_font_default = "default"; // @TODO: read these from skin.ini
 	private static String name_font_score = "score";
 	private static String name_font_combo = "combo";
 	
@@ -27,6 +27,9 @@ public class Assets
 	public static Sprite[] font_score_numbers = new Sprite[10];
 	public static Sprite[] font_combo_numbers = new Sprite[10];
 	public static Sprite font_score_comma, font_score_dot, font_score_percent;
+	
+	// audio
+	// @TODO: add audio assets
 	
 	public Assets()
 	{
@@ -60,9 +63,9 @@ public class Assets
 			_sprites.add(font_score_numbers[i]);
 		}
 		
-		font_score_comma    = new Sprite(game, name_font_default + "-" + "comma");
-		font_score_dot      = new Sprite(game, name_font_default + "-" + "dot");
-		font_score_percent  = new Sprite(game, name_font_default + "-" + "percent");
+		font_score_comma    = new Sprite(game, name_font_score + "-" + "comma");
+		font_score_dot      = new Sprite(game, name_font_score + "-" + "dot");
+		font_score_percent  = new Sprite(game, name_font_score + "-" + "percent");
 	}
 	
 	public String getSkinName()

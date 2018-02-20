@@ -23,7 +23,7 @@ public class Sprite
 		String spritePath = System.getProperty("user.dir") + new Assets().getSkinPath() + (id + ".png");
 		this.f = new File(spritePath);
 		
-		System.out.println("Loading " + String.format("%1$20s", "..." + id) + " at " + spritePath); // 8 is padding
+		System.out.println("Loading " + String.format("%1$26s", "..." + id) + " at " + spritePath); // 8 is padding
 		this.i = ImageLoader.loadImage(this.f);
 		this.size = this.i.getWidth(null);
 	}

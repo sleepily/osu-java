@@ -3,6 +3,7 @@ package com.sleepingdreamlessly.osu.objects.std;
 import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
+import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.objects.OsuHitObject;
 import com.sleepingdreamlessly.osu.rulesets.std.CircleSize;
 import com.sleepingdreamlessly.osu.rulesets.std.Timings;
@@ -16,36 +17,50 @@ public class OsuHitCircle extends OsuHitObject
 	private Sprite hitcircleoverlay;
 	private Sprite sprite_combo;
 	
+	private long time_start_fadeIn = Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time);
+	private long time_fadedCompletely;
+	
 	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time)
 	{
 		super(game, id, pos_x, pos_y, time);
+		this.time_fadedCompletely = this.time + this.time - Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time);
 		this.approachCircle = Assets.approachcircle;
 		this.hitcircleoverlay = Assets.hitcircleoverlay;
 		this.sprite_combo = Assets.font_combo_numbers[combo];
 		this.TYPE = "std";
+		this.pos = new Vector2(
+			(int)Utils.map(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
+			(int)Utils.map(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
+		);
 	}
 	
 	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time, int combo)
 	{
 		super(game, id, pos_x, pos_y, time);
+		this.time_fadedCompletely = this.time + this.time - Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time);
 		this.approachCircle = Assets.approachcircle;
 		this.hitcircleoverlay = Assets.hitcircleoverlay;
 		this.sprite_combo = Assets.font_default_numbers[combo % 10];
 		this.isNewCombo = (combo == 1);
 		this.TYPE = "std";
+		this.pos = new Vector2(
+			(int)Utils.map(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
+			(int)Utils.map(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
+		);
 	}
 	
 	public void tick()
 	{
 		this.calculateAlpha();
+		
+		if (game.getTime_rel_current_ms() > time_fadedCompletely)
+			this.dispose = true;
 	}
 	
 	public void render(UI ui)
 	{
-		Vector2 pos = new Vector2(
-			(int)Utils.map(this.pos.x, 0, ui.getBaseSize().x, 0, ui.getScreenVector().x),
-			(int)Utils.map(this.pos.y, 0, ui.getBaseSize().y, 0, ui.getScreenVector().y)
-		);
+		if (game.getTime_rel_current_ms() < time_start_fadeIn)
+			return;
 		
 		this.sprite.drawCenteredWithSize(
 			this.game,
@@ -54,6 +69,7 @@ public class OsuHitCircle extends OsuHitObject
 			CircleSize.circleSize_hitCircle(game.CircleSize),
 			this.alpha
 		);
+		
 		this.hitcircleoverlay.drawCenteredWithSize(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
@@ -61,6 +77,7 @@ public class OsuHitCircle extends OsuHitObject
 			CircleSize.circleSize_hitCircle(game.CircleSize),
 			this.alpha
 		);
+		
 		this.sprite_combo.drawCenteredWithScale(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
@@ -68,6 +85,7 @@ public class OsuHitCircle extends OsuHitObject
 			64f / CircleSize.circleSize_hitCircle(game.CircleSize),
 			this.alpha
 		);
+		
 		this.approachCircle.drawCenteredWithSize(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
@@ -86,6 +104,5 @@ public class OsuHitCircle extends OsuHitObject
 			0,
 			1
 		);
-		// System.out.println(game.getTime_rel_current_ms() + ", " + this.time + ", " + Float.toString(this.alpha));
 	}
 }

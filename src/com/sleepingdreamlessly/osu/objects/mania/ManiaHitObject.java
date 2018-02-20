@@ -15,10 +15,14 @@ public class ManiaHitObject extends HitObject
 	{
 		super(game, id, x, 0, time);
 		this.TYPE = "mania";
+		this.scale = .25f;
 	}
 	
 	public void tick()
 	{
+		if (this.y < sprite.i.getHeight(null) / 2 * this.scale)
+			this.dispose = true;
+		
 		this.calculateY();
 		this.calculateAlpha();
 	}
@@ -29,7 +33,7 @@ public class ManiaHitObject extends HitObject
 			this.game,
 			(int)((pos.x - 2) * 60 + ui.getJudgementLine().x),
 			(int)(pos.y),
-			.3f,
+			this.scale,
 			this.alpha
 		);
 	}

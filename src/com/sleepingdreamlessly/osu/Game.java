@@ -3,7 +3,6 @@ package com.sleepingdreamlessly.osu;
 import com.sleepingdreamlessly.osu.display.Display;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
-import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.input.KeyManager;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
@@ -32,8 +31,8 @@ public class Game implements Runnable
 	private GameCamera gameCamera;
 	private UI ui;
 	
-	private ArrayList<Sprite> _sprites = new ArrayList<>();
 	public ArrayList<HitObject> _hitobjects = new ArrayList<>();
+	public ArrayList<HitObject> _hitobjectGarbageCollected = new ArrayList<>();
 	
 	private Handler handler;
 	
@@ -44,6 +43,8 @@ public class Game implements Runnable
 	private long time_current_ms = time_init / 1000000;
 	private long time_rel_current = 0;
 	private long time_rel_current_ms = 0;
+	private long time_garbageCollection_interval = 100;
+	private long time_garbageCollection_last = 0;
 	
 	public double ApproachRate = 8, CircleSize = 4, OverallDifficulty = 7, HPDrainRate = 6;
 	
@@ -64,13 +65,6 @@ public class Game implements Runnable
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init(this);
 		
-		/*
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 0, 0, 4600));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 0, 348, 4700));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 0, 4800));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 348, 4900));
-		*/
-		
 		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2000));
 		_hitobjects.add(new ManiaHitObject(this, "note", 1, 2100));
 		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2200));
@@ -84,6 +78,11 @@ public class Game implements Runnable
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 230, 214, 4200, 2));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 310, 134, 4400, 3));
 		
+		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 0, 0, 4600, 1));
+		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 0, 348, 4700, 2));
+		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 0, 4800, 3));
+		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 348, 4900, 4));
+		
 		gameCamera = new GameCamera(this, 0, 0);
 		handler = new Handler(this);
 	}
@@ -95,7 +94,21 @@ public class Game implements Runnable
 		keyManager.tick();
 		
 		for (GameObject h : _hitobjects)
+		{
 			h.tick();
+			
+			if (h.dispose)
+				_hitobjectGarbageCollected.add((HitObject) h);
+		}
+		
+		if (time_garbageCollection_interval <= time_rel_current_ms - time_garbageCollection_last)
+		{
+			for (HitObject h : _hitobjectGarbageCollected)
+				_hitobjects.remove(h);
+			
+			_hitobjectGarbageCollected.clear();
+			time_garbageCollection_last += time_garbageCollection_interval;
+		}
 	}
 	
 	private void render()
@@ -135,7 +148,7 @@ public class Game implements Runnable
 		g.drawString("FPS: " + Double.toString(_fps), 0, 10);
 		g.drawString("ms:  " + Double.toString(time_rel_current_ms), 0, 20);
 		
-		// @TODO: render objects backwards (use time as depth)
+		// @TODO: render objects backwards (use object time as depth)
 		for (GameObject h : _hitobjects)
 			h.render(this.ui);
 		
@@ -164,7 +177,7 @@ public class Game implements Runnable
 		long timer = 0;
 		int ticks = 0;
 		int second = 1000000000;
-		double reports = 4; // update rate per second
+		double reports = 3; // update rate per second
 		
 		while(running){
 			//update delta time

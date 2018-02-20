@@ -11,6 +11,7 @@ public abstract class GameObject
 	protected float x, y;
 	protected Game game;
 	public String TYPE, id;
+	public boolean dispose = false;
 	
 	public GameObject(Game game, String id)
 	{
