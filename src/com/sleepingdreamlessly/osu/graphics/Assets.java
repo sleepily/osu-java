@@ -8,8 +8,8 @@ public class Assets
 {
 	private static ArrayList<Sprite> _sprites = new ArrayList<>();
 	
-	private String name_skin = "funorange";
-	private String path_skin = "\\res\\skins\\" + name_skin + "\\";
+	private static String name_skin = "funorange";
+	private static String path_skin = "\\res\\skins\\" + name_skin + "\\";
 	private static String name_font_score = "score";
 	private static String name_font_combo = "combo";
 	
@@ -52,12 +52,12 @@ public class Assets
 		}
 	}
 	
-	public String getSkin()
+	public String getSkinName()
 	{
 		return name_skin;
 	}
 	
-	public String getSkinPath()
+	public static String getSkinPath()
 	{
 		return path_skin;
 	}
