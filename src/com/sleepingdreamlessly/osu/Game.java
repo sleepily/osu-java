@@ -115,16 +115,19 @@ public class Game implements Runnable
 			time_garbageCollection_last += time_garbageCollection_interval_ms;
 			
 			if (_hitobjectGarbageCollected.size() < 2)
+			{
+				garbageCollection_inProgress = false;
 				return;
+			}
 			
 			for (HitObject h : _hitobjectGarbageCollected)
 				_hitobjects.remove(h);
 			
 			System.out.println("Destroyed " + _hitobjectGarbageCollected.size() + " objects.");
 			_hitobjectGarbageCollected.clear();
+			
+			garbageCollection_inProgress = false;
 		}
-		
-		garbageCollection_inProgress = false;
 	}
 	
 	private void render()
