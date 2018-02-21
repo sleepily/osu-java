@@ -32,7 +32,6 @@ public class Game implements Runnable
 	private UI ui;
 	
 	public ArrayList<HitObject> _hitobjects = new ArrayList<>();
-	public ArrayList<HitObject> _hitobjectGarbageCollected = new ArrayList<>();
 	
 	private Handler handler;
 	
@@ -42,8 +41,11 @@ public class Game implements Runnable
 	private long time_current_ms = time_init / 1000000;
 	private long time_rel_current = 0;
 	private long time_rel_current_ms = 0;
-	private long time_garbageCollection_interval_ms = 100;
+	
+	public ArrayList<HitObject> _hitobjectGarbageCollected = new ArrayList<>();
+	private long time_garbageCollection_interval_ms = 10;
 	private long time_garbageCollection_last = 0;
+	private boolean garbageCollection_inProgress = false;
 	
 	public double ApproachRate = 10, CircleSize = 5, OverallDifficulty = 7, HPDrainRate = 6;
 	
@@ -100,8 +102,16 @@ public class Game implements Runnable
 				_hitobjectGarbageCollected.add((HitObject) h);
 		}
 		
+		if (!garbageCollection_inProgress)
+			garbageCollection();
+	}
+	
+	private void garbageCollection()
+	{
 		if (time_garbageCollection_interval_ms <= time_rel_current_ms - time_garbageCollection_last)
 		{
+			garbageCollection_inProgress = true;
+			
 			time_garbageCollection_last += time_garbageCollection_interval_ms;
 			
 			if (_hitobjectGarbageCollected.size() < 2)
@@ -113,6 +123,8 @@ public class Game implements Runnable
 			System.out.println("Destroyed " + _hitobjectGarbageCollected.size() + " objects.");
 			_hitobjectGarbageCollected.clear();
 		}
+		
+		garbageCollection_inProgress = false;
 	}
 	
 	private void render()
