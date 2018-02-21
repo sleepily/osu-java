@@ -38,15 +38,14 @@ public class Game implements Runnable
 	
 	private long time_init = System.nanoTime();
 	private long time_init_ms = time_init / 1000000;
-	private long time_rel_init = 0;
 	private long time_current = time_init;
 	private long time_current_ms = time_init / 1000000;
 	private long time_rel_current = 0;
 	private long time_rel_current_ms = 0;
-	private long time_garbageCollection_interval = 100;
+	private long time_garbageCollection_interval_ms = 100;
 	private long time_garbageCollection_last = 0;
 	
-	public double ApproachRate = 8, CircleSize = 4, OverallDifficulty = 7, HPDrainRate = 6;
+	public double ApproachRate = 10, CircleSize = 5, OverallDifficulty = 7, HPDrainRate = 6;
 	
 	private int width, height = 0;
 	
@@ -55,7 +54,7 @@ public class Game implements Runnable
 		this.width = width;
 		this.height = height;
 		this.display = new Display(title, width, height);
-		keyManager = new KeyManager();
+		this.keyManager = new KeyManager();
 		this.ui = new UI(this);
 	}
 	
@@ -101,13 +100,18 @@ public class Game implements Runnable
 				_hitobjectGarbageCollected.add((HitObject) h);
 		}
 		
-		if (time_garbageCollection_interval <= time_rel_current_ms - time_garbageCollection_last)
+		if (time_garbageCollection_interval_ms <= time_rel_current_ms - time_garbageCollection_last)
 		{
+			time_garbageCollection_last += time_garbageCollection_interval_ms;
+			
+			if (_hitobjectGarbageCollected.size() < 2)
+				return;
+			
 			for (HitObject h : _hitobjectGarbageCollected)
 				_hitobjects.remove(h);
 			
+			System.out.println("Destroyed " + _hitobjectGarbageCollected.size() + " objects.");
 			_hitobjectGarbageCollected.clear();
-			time_garbageCollection_last += time_garbageCollection_interval;
 		}
 	}
 	
@@ -263,6 +267,13 @@ public class Game implements Runnable
 	
 	private void updateCurrentTime()
 	{
+		if (!graphicsready)
+		{
+			this.time_init = System.nanoTime();
+			this.time_init_ms = System.nanoTime() / 1000000;
+			return;
+		}
+		
 		this.time_current = System.nanoTime();
 		this.time_current_ms = System.nanoTime() / 1000000;
 		this.time_rel_current = this.time_current - this.time_init;
