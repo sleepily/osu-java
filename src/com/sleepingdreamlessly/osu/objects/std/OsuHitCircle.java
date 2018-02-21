@@ -2,6 +2,7 @@ package com.sleepingdreamlessly.osu.objects.std;
 
 import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.assets.Assets;
+import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.objects.OsuHitObject;
@@ -23,6 +24,19 @@ public class OsuHitCircle extends OsuHitObject
 	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time)
 	{
 		super(game, id, pos_x, pos_y, time);
+		this.init();
+	}
+	
+	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time, int combo)
+	{
+		super(game, id, pos_x, pos_y, time);
+		this.init();
+		this.sprite_combo = Assets.font_default_numbers[combo % 10];
+		this.isNewCombo = (combo == 1);
+	}
+	
+	private void init()
+	{
 		this.time_fadedCompletely = this.time + this.time - Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time);
 		this.approachCircle = Assets.approachcircle;
 		this.hitcircleoverlay = Assets.hitcircleoverlay;
@@ -32,28 +46,21 @@ public class OsuHitCircle extends OsuHitObject
 			(int)Utils.map(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
 			(int)Utils.map(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
 		);
-	}
-	
-	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time, int combo)
-	{
-		super(game, id, pos_x, pos_y, time);
-		this.time_fadedCompletely = this.time + this.time - Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time);
-		this.approachCircle = Assets.approachcircle;
-		this.hitcircleoverlay = Assets.hitcircleoverlay;
-		this.sprite_combo = Assets.font_default_numbers[combo % 10];
-		this.isNewCombo = (combo == 1);
-		this.TYPE = "std";
-		this.pos = new Vector2(
-			(int)Utils.map(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
-			(int)Utils.map(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
-		);
+		this.sample = Assets.getSample("soft-hitnormal");
 	}
 	
 	public void tick()
 	{
 		this.calculateAlpha();
 		
-		if (game.getTime_rel_current_ms() > time_fadedCompletely)
+		if (!this.samplePlayed)
+			if (game.getTime_rel_current_ms() >= this.time)
+			{
+				this.samplePlayed = true;
+				AudioPlayer.play(this.sample);
+			}
+			
+		if (game.getTime_rel_current_ms() >= time_fadedCompletely)
 			this.dispose = true;
 	}
 	

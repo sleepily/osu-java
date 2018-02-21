@@ -1,6 +1,6 @@
 package com.sleepingdreamlessly.osu.audio.formats;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
 public class AudioFormats
 {
@@ -9,15 +9,8 @@ public class AudioFormats
 	public static final AudioFormat OGG = new AudioFormat(".ogg");
 	public static final AudioFormat FLAC = new AudioFormat(".flac");
 	
-	public static ArrayList<AudioFormat> _FORMATS()
+	public AudioFormats()
 	{
-		ArrayList<AudioFormat> f = new ArrayList<>();
-		
-		f.add(WAV);
-		f.add(MP3);
-		f.add(OGG);
-		f.add(FLAC);
-		
-		return f;
+	
 	}
 }

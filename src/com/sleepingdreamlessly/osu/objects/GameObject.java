@@ -16,7 +16,7 @@ public abstract class GameObject
 	public GameObject(Game game, String id)
 	{
 		this.id = id;
-		this.sprite = Assets.get(id);
+		this.sprite = Assets.getSprite(id);
 		this.game = game;
 		this.TYPE = "GameObject";
 	}

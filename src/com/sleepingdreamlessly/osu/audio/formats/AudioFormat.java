@@ -9,10 +9,10 @@ public class AudioFormat
 		ID = id;
 		
 		NAME =
-			(id == "wav") ? "Waveform Audio File Format" :
-			(id == "mp3") ? "MP3" :
-			(id == "flac") ? "Free Lossless Audio Codec" :
-			(id == "ogg") ? "Ogg Vorbis" :
+			(id == ".wav") ? "Waveform Audio File Format" :
+			(id == ".mp3") ? "MP3" :
+			(id == ".flac") ? "Free Lossless Audio Codec" :
+			(id == ".ogg") ? "Ogg Vorbis" :
 			"unknown";
 	}
 }

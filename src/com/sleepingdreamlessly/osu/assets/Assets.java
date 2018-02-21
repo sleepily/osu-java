@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu.assets;
 
 import com.sleepingdreamlessly.osu.Game;
+import com.sleepingdreamlessly.osu.audio.AudioClip;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -29,7 +30,14 @@ public class Assets
 	public static Sprite font_score_comma, font_score_dot, font_score_percent;
 	
 	// audio
-	// @TODO: add audio assets
+	public static ArrayList<AudioClip> _samples = new ArrayList<>();
+	
+		/*
+			hitsounds[sampleset][sound] >>
+			sample sets: soft, normal, drum
+			sound: normal, whistle, finish, clap
+		 */
+	public static AudioClip[][] hitsounds = new AudioClip[3][4]; // ;
 	
 	public Assets()
 	{
@@ -66,6 +74,24 @@ public class Assets
 		font_score_comma    = new Sprite(game, name_font_score + "-" + "comma");
 		font_score_dot      = new Sprite(game, name_font_score + "-" + "dot");
 		font_score_percent  = new Sprite(game, name_font_score + "-" + "percent");
+		
+		// sounds
+		for (int s = 0; s < 4; s++)
+		{
+			String soundName =
+				(s == 0) ?
+					"normal"  :
+				(s == 1) ?
+					"whistle" :
+				(s == 2) ?
+					"finish"  :
+				(s == 3) ?
+					"clap"    : "";
+			
+			hitsounds[0][s] = new AudioClip("soft-hit"    + soundName); _samples.add(hitsounds[0][s]);
+			hitsounds[1][s] = new AudioClip("normal-hit"  + soundName); _samples.add(hitsounds[1][s]);
+			hitsounds[2][s] = new AudioClip("drum-hit"    + soundName); _samples.add(hitsounds[2][s]);
+		}
 	}
 	
 	public String getSkinName()
@@ -78,13 +104,23 @@ public class Assets
 		return path_skin;
 	}
 	
-	public static Sprite get(String id)
+	public static Sprite getSprite(String id)
 	{
 		for (Sprite s : _sprites)
 			if (s.id.equals(id))
 				return s;
 		
 		System.out.println("WARNING: Sprite " + id + " not found.");
+		return null;
+	}
+	
+	public static AudioClip getSample(String id)
+	{
+		for (AudioClip a : _samples)
+			if (a.id.equals(id))
+				return a;
+		
+		System.out.println("WARNING: Sample " + id + " not found.");
 		return null;
 	}
 }

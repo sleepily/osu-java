@@ -1,36 +1,35 @@
 package com.sleepingdreamlessly.osu.audio;
 
-import com.sleepingdreamlessly.osu.audio.formats.AudioFormat;
-import com.sleepingdreamlessly.osu.audio.formats.AudioFormats;
 import com.sleepingdreamlessly.osu.assets.Assets;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class AudioClip
 {
-	private String id;
+	public String id;
 	private File file;
 	
 	public AudioClip(String id)
 	{
 		this.id = id;
+		this.load();
 	}
 	
-	private File loadFile()
+	private File load()
 	{
-		for (AudioFormat af : AudioFormats._FORMATS())
-		{
-			file = new File(Assets.getSkinPath() + this.id + af.ID);
+		String samplePath = System.getProperty("user.dir") + new Assets().getSkinPath() + id;
 		
-			if (!file.exists())
-				continue;
-			
-			return file;
-		}
+		String audioformat = ".wav";
+		file = new File(samplePath + audioformat);
 		
-		return null;
+		System.out.println("Loading " + String.format("%1$26s", id) + " at " + samplePath + audioformat);
+		return file;
+		
+		// System.out.println("ERROR >> Couldn't find " + this.id + " sample at " + samplePath + ".wav");
+		// return null;
 	}
 	
 	/*
