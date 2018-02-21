@@ -7,8 +7,8 @@ import com.sleepingdreamlessly.osu.utils.Vector2;
 
 public class ManiaHitObject extends HitObject
 {
-	protected long time; // perfect hit time, milliseconds
-	protected float alpha = 1f; // 0f to 1f
+	protected long time;
+	protected float alpha = 1f;
 	protected Vector2 pos = new Vector2();
 	
 	public ManiaHitObject(Game game, String id, int x, long time)
