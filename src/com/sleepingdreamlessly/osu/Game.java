@@ -6,6 +6,7 @@ import com.sleepingdreamlessly.osu.graphics.GameCamera;
 import com.sleepingdreamlessly.osu.input.KeyManager;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
+import com.sleepingdreamlessly.osu.objects.KeyOverlay;
 import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
 import com.sleepingdreamlessly.osu.objects.std.OsuHitCircle;
 import com.sleepingdreamlessly.osu.rulesets.UI;
@@ -29,6 +30,7 @@ public class Game implements Runnable
 	private KeyManager keyManager;
 	
 	private GameCamera gameCamera;
+	private KeyOverlay keyOverlay;
 	private UI ui;
 	
 	public ArrayList<HitObject> _hitobjects = new ArrayList<>();
@@ -75,6 +77,7 @@ public class Game implements Runnable
 		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2700));
 		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2800));
 		
+		/*
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 140, 200, 4000, 1));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 230, 214, 4200, 2));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 310, 134, 4400, 3));
@@ -83,8 +86,10 @@ public class Game implements Runnable
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 0, 348, 4700, 2));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 0, 4800, 3));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 348, 4900, 4));
+		*/
 		
 		gameCamera = new GameCamera(this, 0, 0);
+		keyOverlay = new KeyOverlay(this, this.keyManager);
 		handler = new Handler(this);
 	}
 	
@@ -93,6 +98,7 @@ public class Game implements Runnable
 		this.updateCurrentTime();
 		
 		keyManager.tick();
+		keyOverlay.tick();
 		
 		for (GameObject h : _hitobjects)
 		{
@@ -170,6 +176,8 @@ public class Game implements Runnable
 		// @TODO: render objects backwards (use object time as depth)
 		for (GameObject h : _hitobjects)
 			h.render(this.ui);
+		
+		keyOverlay.render(ui);
 		
 		if (!graphicsready)
 		{
