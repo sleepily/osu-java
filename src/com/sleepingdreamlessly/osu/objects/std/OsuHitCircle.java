@@ -89,7 +89,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
-			64f / CircleSize.circleSize_hitCircle(game.CircleSize),
+			Utils.map((float)CircleSize.circleSize_hitCircle(game.CircleSize), 20, 120,.4f, 1f),
 			this.alpha
 		);
 		
