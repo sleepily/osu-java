@@ -20,7 +20,7 @@ public class ManiaHitObject extends HitObject
 	
 	public void tick()
 	{
-		if (this.y < sprite.i.getHeight(null) / 2 * this.scale)
+		if (this.y > UI.getScreenVector().y)
 			this.dispose = true;
 		
 		this.calculateY();
@@ -45,6 +45,6 @@ public class ManiaHitObject extends HitObject
 	
 	protected void calculateAlpha()
 	{
-	
+		this.alpha = 1f;
 	}
 }
