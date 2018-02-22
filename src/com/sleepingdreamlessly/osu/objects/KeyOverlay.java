@@ -3,18 +3,26 @@ package com.sleepingdreamlessly.osu.objects;
 import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
+import com.sleepingdreamlessly.osu.input.KeyManager;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 
 public class KeyOverlay extends GameObject
 {
+	private KeyManager keyManager;
 	private Sprite key;
 	
-	public KeyOverlay(Game game)
+	public KeyOverlay(Game game, KeyManager keyManager)
 	{
-		super(game, "keyoverlay_background");
+		super(game, "inputoverlay-background");
+		this.keyManager = keyManager;
 		key = Assets.inputoverlay_key;
-		x = UI.getScreenVector().x - (sprite.i.getWidth(null) / 2);
-		y = UI.getScreenVector().y - (sprite.i.getHeight(null) / 2);
+		x = 600; // UI.getScreenVector().x - (sprite.i.getWidth(null) / 2);
+		y = 240; // UI.getScreenVector().y - (sprite.i.getHeight(null) / 2);
+	}
+	
+	public void tick()
+	{
+	
 	}
 	
 	public void render(UI ui)
