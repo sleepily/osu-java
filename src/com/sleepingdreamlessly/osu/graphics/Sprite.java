@@ -5,6 +5,8 @@ import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.utils.ImageLoader;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.io.File;
 
 public class Sprite
@@ -40,6 +42,8 @@ public class Sprite
 			g2d.drawImage(op.filter(image, null), drawLocationX, drawLocationY, null);
 	 */
 	
+	//@TODO: rework drawing to use an anchor instead of seperate methods
+	
 	public void drawCenteredWithSize(Game game, int x, int y, double size, float opacity)
 	{
 		Image image_scaled = i.getScaledInstance((int)size, (int)size, Image.SCALE_SMOOTH);
@@ -56,6 +60,23 @@ public class Sprite
 				Image.SCALE_SMOOTH
 			);
 		draw(game, x, y, image_scaled, opacity);
+	}
+	
+	private void drawRotatedRAD(Game game, int x, int y, Image image, float opacity, double rotationRAD)
+	{
+		double centerX = image.getWidth(null) / 2;
+		double centerY = image.getHeight(null) / 2;
+		AffineTransform tx = AffineTransform.getRotateInstance(rotationRAD, centerX, centerY);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+		
+		//@TODO: finish this and op.filter()? needs to be BufferedImage?
+		draw(game, x, y, op.filter(image, null), opacity);
+	}
+	
+	private void drawRotatedDEG(Game game, int x, int y, Image image, float opacity, double rotationDEG)
+	{
+		double rotationInRAD = Math.toRadians(rotationDEG);
+		drawRotatedRAD(game, x, y, image, opacity, rotationInRAD);
 	}
 	
 	private void draw(Game game, int x, int y, Image image, float opacity)
