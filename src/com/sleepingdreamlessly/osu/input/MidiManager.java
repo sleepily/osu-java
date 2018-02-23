@@ -13,16 +13,31 @@ import java.util.Scanner;
 public class MidiManager
 {
 	private ArrayList<MidiDevice> devices = new ArrayList<>();
-
-  public MidiManager()
+	public ArrayList<MidiDevice> devicesOpened = new ArrayList<>();
+	public MidiDevice deviceOpened;
+	
+	private MidiTranslator translator = new MidiTranslator();
+	
+	public MidiManager()
 	{
 	
+	}
+	
+	public void init()
+	{
+		rescan();
+	}
+	
+	public void tick()
+	{
+		translator.tick();
 	}
 	
 	public void rescan()
 	{
 		scan();
 		open(midiDeviceSelectPrompt());
+		translator.setDevice(deviceOpened);
 	}
 	
 	private int midiDeviceSelectPrompt()
@@ -69,12 +84,16 @@ public class MidiManager
 	
 	public void open(MidiDevice device)
 	{
+		devicesOpened.clear();
+		
 		try
 		{
 			Transmitter trans = device.getTransmitter();
 			trans.setReceiver(new MidiInputReceiver(device.getDeviceInfo().toString()));
 			
 			device.open();
+			// devicesOpened.add(device);
+			deviceOpened = device;
 			
 			System.out.println(device.getDeviceInfo() + " was opened successfully.");
 			
