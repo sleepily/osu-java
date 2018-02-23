@@ -25,11 +25,14 @@ public class AudioClip
 		String audioformat = ".wav";
 		file = new File(samplePath + audioformat);
 		
-		System.out.println("Loading " + String.format("%1$26s", id) + " at " + samplePath + audioformat);
-		return file;
+		if (!file.exists())
+		{
+			System.out.println("ERROR >> Couldn't find " + this.id + " sample at " + samplePath + ".wav");
+			return null;
+		}
 		
-		// System.out.println("ERROR >> Couldn't find " + this.id + " sample at " + samplePath + ".wav");
-		// return null;
+		// System.out.println("Loading " + String.format("%1$26s", id) + " at " + samplePath + audioformat);
+		return file;
 	}
 	
 	/*
