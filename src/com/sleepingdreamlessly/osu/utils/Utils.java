@@ -13,8 +13,12 @@ public class Utils
 	}
 	
 	public static float map(float value, float in_min, float in_max, float out_min, float out_max) {
+		return ((value - in_min) / (in_max - in_min) * (out_max - out_min) + out_min);
+	}
+	
+	public static float mapAndClamp(float value, float in_min, float in_max, float out_min, float out_max) {
 		return clamp(
-			((value - in_min) / (in_max - in_min) * (out_max - out_min) + out_min),
+			map(value, in_min, in_max, out_min, out_max),
 			out_min,
 			out_max
 		);

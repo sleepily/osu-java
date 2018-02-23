@@ -20,8 +20,9 @@ public class AudioClip
 	
 	private File load()
 	{
-		String samplePath = System.getProperty("user.dir") + new Assets().getSkinPath() + id;
+		String samplePath = System.getProperty("user.dir") + Assets.getSkinPath() + id;
 		
+		//@TODO: implement multiple audio formats
 		String audioformat = ".wav";
 		file = new File(samplePath + audioformat);
 		
