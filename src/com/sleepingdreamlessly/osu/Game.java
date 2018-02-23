@@ -4,6 +4,7 @@ import com.sleepingdreamlessly.osu.display.Display;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
 import com.sleepingdreamlessly.osu.input.KeyManager;
+import com.sleepingdreamlessly.osu.input.MidiManager;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.objects.KeyOverlay;
@@ -28,6 +29,7 @@ public class Game implements Runnable
 	private boolean running, graphicsready = false;
 	
 	private KeyManager keyManager;
+	private MidiManager midiManager;
 	
 	private GameCamera gameCamera;
 	private KeyOverlay keyOverlay;
@@ -45,7 +47,7 @@ public class Game implements Runnable
 	private long time_rel_current_ms = 0;
 	
 	public ArrayList<HitObject> _hitobjectGarbageCollected = new ArrayList<>();
-	private long time_garbageCollection_interval_ms = 10;
+	private long time_garbageCollection_interval_ms = 400;
 	private long time_garbageCollection_last = 0;
 	private boolean garbageCollection_inProgress = false;
 	
@@ -59,6 +61,7 @@ public class Game implements Runnable
 		this.height = height;
 		this.display = new Display(title, width, height);
 		this.keyManager = new KeyManager();
+		this.midiManager = new MidiManager();
 		this.ui = new UI(this);
 	}
 	
@@ -100,12 +103,13 @@ public class Game implements Runnable
 		keyManager.tick();
 		keyOverlay.tick();
 		
-		for (GameObject h : _hitobjects)
+		for (HitObject h : _hitobjects)
 		{
 			h.tick();
 			
 			if (h.dispose)
-				_hitobjectGarbageCollected.add((HitObject) h);
+				if (!_hitobjectGarbageCollected.contains(h))
+					_hitobjectGarbageCollected.add(h);
 		}
 		
 		if (!garbageCollection_inProgress)
