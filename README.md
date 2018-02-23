@@ -13,8 +13,8 @@ The goal is to provide a highly differenciated gameplay by allowing multiple gam
 
 #### Features TODO:
 - MIDI device support: *in progress*
-- - use jogwheels (DJ controllers) for SDVX FX *in progress*
-- - use launchpad/midifighter for jubeat *in progress*
+  - use jogwheels (DJ controllers) for SDVX FX *in progress*
+  - use launchpad/midifighter for jubeat *in progress*
 - song/beatmap editor
 - tatacon controller support?
 - touchscreen support
