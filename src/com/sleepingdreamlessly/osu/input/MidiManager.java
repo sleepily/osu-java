@@ -4,6 +4,7 @@ import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import java.util.Scanner;
 
 /*
 	by https://stackoverflow.com/users/878080/jonathan
@@ -15,11 +16,27 @@ public class MidiManager
 
   public MidiManager()
 	{
-		initializeDevices();
+	
 	}
 	
-	public void initializeDevices()
+	public void rescan()
 	{
+		scan();
+		open(midiDeviceSelectPrompt());
+	}
+	
+	private int midiDeviceSelectPrompt()
+	{
+		Scanner reader = new Scanner(System.in);  // Reading from System.in
+		System.out.println("Choose a MIDI device: ");
+		return reader.nextInt();
+	}
+	
+	public void scan()
+	{
+		devices.clear();
+		
+		System.out.println("Beginning MIDI device scan...");
 		MidiDevice device;
 		MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
 		
@@ -28,40 +45,48 @@ public class MidiManager
 			try
 			{
 				device = MidiSystem.getMidiDevice(infos[i]);
-				
-				if (device.getTransmitters().size() == 0)
-					continue;
-				
-				System.out.println(infos[i] + ": " + device.getTransmitters().size());
 				devices.add(device);
+				
+				String paddedMidiDeviceIndex = String.format("%1$2s", i).replace(' ', '0');
+				System.out.println("\tMIDI device " + paddedMidiDeviceIndex + ": " +  infos[i]);
+				
+				List<Transmitter> transmitters = device.getTransmitters();
+				
+				for(Transmitter t : transmitters)
+					t.setReceiver(new MidiInputReceiver(device.getDeviceInfo().toString()));
 			}
 			catch (MidiUnavailableException e)
 			{
-			
+				e.printStackTrace();
 			}
 		}
-		
-		if (devices.size() == 0)
-			return;
-		
-		for (MidiDevice md : devices)
+	}
+	
+	public void open(int midiDeviceIndex)
+	{
+		open(devices.get(midiDeviceIndex));
+	}
+	
+	public void open(MidiDevice device)
+	{
+		try
 		{
-			try
-			{
-				List<Transmitter> transmitters = md.getTransmitters();
-				
-				for (Transmitter t : transmitters)
-					t.setReceiver(new MidiInputReceiver(md.getDeviceInfo().toString()));
-				
-				md.open();
-				
-				System.out.println(md.getDeviceInfo() + " was opened successfully.");
-			}
-			catch (MidiUnavailableException e)
-			{
+			Transmitter trans = device.getTransmitter();
+			trans.setReceiver(new MidiInputReceiver(device.getDeviceInfo().toString()));
 			
-			}
+			device.open();
+			
+			System.out.println(device.getDeviceInfo() + " was opened successfully.");
+			
+			return;
 		}
+		catch (MidiUnavailableException e)
+		{
+			System.err.println("ERROR: " + e.getLocalizedMessage());
+			System.err.println("Please select a different MIDI device.");
+		}
+		
+		open(midiDeviceSelectPrompt());
 	}
 	
 	public class MidiInputReceiver implements Receiver

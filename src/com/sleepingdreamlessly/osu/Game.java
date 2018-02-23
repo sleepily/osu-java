@@ -71,6 +71,7 @@ public class Game implements Runnable
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init(this);
 		
+		/*
 		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2000));
 		_hitobjects.add(new ManiaHitObject(this, "note", 1, 2100));
 		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2200));
@@ -80,7 +81,7 @@ public class Game implements Runnable
 		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2700));
 		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2800));
 		
-		/*
+		*/
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 140, 200, 4000, 1));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 230, 214, 4200, 2));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 310, 134, 4400, 3));
@@ -89,7 +90,8 @@ public class Game implements Runnable
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 0, 348, 4700, 2));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 0, 4800, 3));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 348, 4900, 4));
-		*/
+		
+		midiManager.rescan();
 		
 		gameCamera = new GameCamera(this, 0, 0);
 		keyOverlay = new KeyOverlay(this, this.keyManager);
