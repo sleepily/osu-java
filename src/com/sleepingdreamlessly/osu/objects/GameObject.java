@@ -7,7 +7,7 @@ import com.sleepingdreamlessly.osu.rulesets.UI;
 
 public abstract class GameObject
 {
-	protected Sprite sprite;
+	public Sprite sprite;
 	protected float x, y;
 	protected Game game;
 	public String TYPE, id;

@@ -157,7 +157,8 @@ public class Game implements Runnable
 		// draw playfield @TODO: finish this later and make the playfield actually work
 		
 		g.setColor(Color.GREEN);
-		g.drawRect(
+		g.drawRect
+		(
 			(int)(UI.getPlayfieldPadding().x),
 			(int)(UI.getPlayfieldPadding().y),
 			(int)(UI.getScreenVector().x),
@@ -167,7 +168,6 @@ public class Game implements Runnable
 		// draw mania judgement line @TODO: implement a graphical transition from mode to mode
 		g.setColor(Color.GREEN);
 		g.drawLine(this.width / 2 - 90, this.height - 100, this.width / 2 + 90, this.height - 100);
-		
 		
 		// draw debug strings
 		g.setColor(Color.WHITE);

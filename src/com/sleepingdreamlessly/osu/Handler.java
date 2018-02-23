@@ -2,6 +2,7 @@ package com.sleepingdreamlessly.osu;
 
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
 import com.sleepingdreamlessly.osu.input.KeyManager;
+import com.sleepingdreamlessly.osu.rulesets.UI;
 
 public class Handler
 {
@@ -33,5 +34,9 @@ public class Handler
 	
 	public void setGame(Game game) {
 		this.game = game;
+	}
+	
+	public UI getUI() {
+		return game.getUI();
 	}
 }
