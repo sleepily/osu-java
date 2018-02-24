@@ -7,6 +7,7 @@ import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.input.KeyManager;
 import com.sleepingdreamlessly.osu.rulesets.UI;
+import com.sleepingdreamlessly.osu.utils.Utils;
 
 public class KeyOverlay extends GameObject
 {
@@ -19,8 +20,9 @@ public class KeyOverlay extends GameObject
 		super(game, "inputoverlay-background");
 		this.keyManager = keyManager;
 		key = Assets.inputoverlay_key;
+		this.sprite.i = Utils.rotateImage(this.sprite.i, 90);
 		x = UI.getScreenVector().x - (sprite.i.getWidth(null) / 2);
-		y = UI.getScreenVector().y - (sprite.i.getHeight(null) / 2);
+		y = UI.getScreenVector().y / 2 - (sprite.i.getHeight(null) / 2);
 		width = sprite.i.getWidth(null);
 		height = sprite.i.getHeight(null);
 	}
