@@ -70,7 +70,7 @@ public class Sprite
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 		
 		//@TODO: finish this and op.filter()? needs to be BufferedImage?
-		draw(game, x, y, op.filter(image, null), opacity);
+		draw(game, x, y, image,  opacity);
 	}
 	
 	private void drawRotatedDEG(Game game, int x, int y, Image image, float opacity, double rotationDEG)
