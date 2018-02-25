@@ -43,8 +43,8 @@ public class OsuHitCircle extends OsuHitObject
 		this.sprite_combo = Assets.font_combo_numbers[combo];
 		this.TYPE = "std";
 		this.pos = new Vector2(
-			(int)Utils.map(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
-			(int)Utils.map(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
+			(int)Utils.mapAndClamp(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
+			(int)Utils.mapAndClamp(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
 		);
 		this.sample = Assets.getSample("soft-hitnormal");
 	}
@@ -89,7 +89,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
-			Utils.map((float)CircleSize.circleSize_hitCircle(game.CircleSize), 20, 120,.4f, 1f),
+			Utils.mapAndClamp((float)CircleSize.circleSize_hitCircle(game.CircleSize), 20, 120,.4f, 1f),
 			this.alpha
 		);
 		
@@ -104,7 +104,7 @@ public class OsuHitCircle extends OsuHitObject
 	
 	protected void calculateAlpha()
 	{
-		this.alpha = Utils.map(
+		this.alpha = Utils.mapAndClamp(
 			game.getTime_rel_current_ms(),
 			Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time),
 			Timings.getTimeForCircle_visible(game.ApproachRate, this.time),

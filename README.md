@@ -1,13 +1,21 @@
 # osu!java
 
-This project began in the middle of 2018/Feb.
+osu!java is aspiring to combine the best rhythm games into one big project.
+The goal is to provide a highly differenciated gameplay by allowing multiple game modes in one song difficulty.
 
-Currently, you are **not** able to play any kind of beatmap, since there is no beatmap converter implemented yet.
-Right now, graphics and game mechanics are in development.
-
-Game modes in implementation:
-- osu! (std, mania)
-
-Game modes to be implemented:
+### Game modes TODO:
+- osu! (std, mania) *in progress*
 - osu! (taiko, catch)
-- sdvx
+- SDVX
+- jubeat
+
+### Features TODO:
+- make osu! beatmaps playable (beatmap converter etc)
+- MIDI device support: *in progress*
+  - use jogwheels (DJ controllers) for SDVX FX *in progress*
+  - use launchpad/midifighter for jubeat
+- song/beatmap editor
+- tatacon controller support?
+- touchscreen support
+
+This project began in the middle of 2018/Feb.

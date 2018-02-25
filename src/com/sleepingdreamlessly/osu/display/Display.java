@@ -2,8 +2,6 @@ package com.sleepingdreamlessly.osu.display;
 
 import javax.swing.*;
 
-import com.sun.awt.AWTUtilities;
-
 import java.awt.*;
 
 public class Display

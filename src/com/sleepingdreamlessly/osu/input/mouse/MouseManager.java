@@ -6,7 +6,7 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseManager implements MouseListener, MouseMotionListener
 {
-	public boolean click, hold, release = false;
+	public boolean[] click, hold, release = new boolean[3];
 	public boolean enter, exit = false;
 	public boolean move = false;
 	
@@ -17,31 +17,35 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	
 	public void tick()
 	{
-		this.click = false;
-		this.hold = false;
-		this.release = false;
+		for (int m = 0; m < 3; m++)
+		{
+			click[m] 		= false;
+			hold[m] 		= false;
+			release[m] 	= false;
+		}
+		
 		this.move = false;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		this.click = true;
-		System.out.println("Mouse clicked.");
+		this.click[e.getButton()] = true;
+		System.out.println("Mouse button " + e.getButton() + " clicked.");
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		this.hold = true;
-		System.out.println("Mouse held.");
+		this.hold[e.getButton()] = true;
+		System.out.println("Mouse button " + e.getButton() + " held.");
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		this.release = true;
-		System.out.println("Mouse released.");
+		this.release[e.getButton()] = true;
+		System.out.println("Mouse button " + e.getButton() + " released.");
 	}
 	
 	@Override

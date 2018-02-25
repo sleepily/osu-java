@@ -22,6 +22,6 @@ public class CircleSize
 		// https://www.reddit.com/r/osugame/comments/6phntt/difficulty_settings_table_with_all_values/
 		// System.out.println(Double.toString((32 * (1 - 0.7 * (CS - 5) / 5))));
 		float scale = Utils.map(time_current, Timings.getTimeForCircle_fadeIn(AR, time_hitcircle), time_hitcircle, 0f, 1f);
-		return Utils.map(scale, 1, 0, 1, 3) * circleSize_hitCircle(CS);// (32 * (1 - 0.7 * (CS - 5) / 5));
+		return Utils.mapAndClamp(scale, 1, 0, 1, 3) * circleSize_hitCircle(CS); // (32 * (1 - 0.7 * (CS - 5) / 5));
 	}
 }

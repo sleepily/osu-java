@@ -46,7 +46,7 @@ public class Game implements Runnable
 	private long time_rel_current_ms = 0;
 	
 	public ArrayList<HitObject> _hitobjectGarbageCollected = new ArrayList<>();
-	private long time_garbageCollection_interval_ms = 400;
+	private long time_garbageCollection_interval_ms = 40;
 	private long time_garbageCollection_last = 0;
 	private boolean garbageCollection_inProgress = false;
 	
@@ -69,8 +69,7 @@ public class Game implements Runnable
 		display.createDisplay();
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init(this);
-		
-		/*
+
 		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2000));
 		_hitobjects.add(new ManiaHitObject(this, "note", 1, 2100));
 		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2200));
@@ -79,8 +78,7 @@ public class Game implements Runnable
 		_hitobjects.add(new ManiaHitObject(this, "note", 3, 2600));
 		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2700));
 		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2800));
-		
-		*/
+
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 140, 200, 4000, 1));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 230, 214, 4200, 2));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 310, 134, 4400, 3));
@@ -90,7 +88,8 @@ public class Game implements Runnable
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 0, 4800, 3));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 348, 4900, 4));
 		
-		midiManager.rescan();
+		// midiManager.rescan();
+		midiManager.scan();
 		
 		gameCamera = new GameCamera(this, 0, 0);
 		keyOverlay = new KeyOverlay(this, this.keyManager);
@@ -109,8 +108,11 @@ public class Game implements Runnable
 			h.tick();
 			
 			if (h.dispose)
+			{
+				System.out.println(h.toString());
 				if (!_hitobjectGarbageCollected.contains(h))
 					_hitobjectGarbageCollected.add(h);
+			}
 		}
 		
 		if (!garbageCollection_inProgress)
@@ -124,12 +126,6 @@ public class Game implements Runnable
 			garbageCollection_inProgress = true;
 			
 			time_garbageCollection_last += time_garbageCollection_interval_ms;
-			
-			if (_hitobjectGarbageCollected.size() < 2)
-			{
-				garbageCollection_inProgress = false;
-				return;
-			}
 			
 			for (HitObject h : _hitobjectGarbageCollected)
 				_hitobjects.remove(h);
@@ -158,19 +154,19 @@ public class Game implements Runnable
 		g.fillRect(0, 0, width, height);
 		
 		// draw playfield @TODO: finish this later and make the playfield actually work
-		/*
+		
 		g.setColor(Color.GREEN);
-		g.drawRect(
+		g.drawRect
+		(
 			(int)(UI.getPlayfieldPadding().x),
 			(int)(UI.getPlayfieldPadding().y),
-			(int)(UI.getScreenVector().y),
-			(int)(UI.getScreenVector().x)
+			(int)(UI.getScreenVector().x),
+			(int)(UI.getScreenVector().y)
 		);
 		
 		// draw mania judgement line @TODO: implement a graphical transition from mode to mode
 		g.setColor(Color.GREEN);
 		g.drawLine(this.width / 2 - 90, this.height - 100, this.width / 2 + 90, this.height - 100);
-		*/
 		
 		// draw debug strings
 		g.setColor(Color.WHITE);
@@ -182,7 +178,7 @@ public class Game implements Runnable
 		for (GameObject h : _hitobjects)
 			h.render(this.ui);
 		
-		keyOverlay.render(ui);
+		keyOverlay.render(this.ui);
 		
 		if (!graphicsready)
 		{
@@ -209,7 +205,7 @@ public class Game implements Runnable
 		long timer = 0;
 		int ticks = 0;
 		int second = 1000000000;
-		double reports = 3; // update rate per second
+		double reports = 1; // update rate per second
 		
 		while(running){
 			//update delta time

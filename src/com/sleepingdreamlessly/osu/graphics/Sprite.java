@@ -3,8 +3,11 @@ package com.sleepingdreamlessly.osu.graphics;
 import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.utils.ImageLoader;
+import com.sleepingdreamlessly.osu.utils.Utils;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.io.File;
 
 public class Sprite
@@ -28,17 +31,7 @@ public class Sprite
 		this.size = this.i.getWidth(null);
 	}
 	
-	/*
-		https://stackoverflow.com/questions/8639567/java-rotating-images#8639615
-			double rotationRequired = Math.toRadians (45);
-			double locationX = image.getWidth() / 2;
-			double locationY = image.getHeight() / 2;
-			AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
-			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-			
-			// Drawing the rotated image at the required drawing locations
-			g2d.drawImage(op.filter(image, null), drawLocationX, drawLocationY, null);
-	 */
+	//@TODO: rework drawing to use an anchor instead of seperate methods
 	
 	public void drawCenteredWithSize(Game game, int x, int y, double size, float opacity)
 	{
@@ -57,6 +50,10 @@ public class Sprite
 			);
 		draw(game, x, y, image_scaled, opacity);
 	}
+	
+	/*
+		draw with rotation referenced from https://stackoverflow.com/questions/8639567/java-rotating-images#8639615
+	 */
 	
 	private void draw(Game game, int x, int y, Image image, float opacity)
 	{
