@@ -3,11 +3,10 @@ package com.sleepingdreamlessly.osu;
 import com.sleepingdreamlessly.osu.display.Display;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
-import com.sleepingdreamlessly.osu.input.keyboard.KeyManager;
-import com.sleepingdreamlessly.osu.input.midi.MidiManager;
+import com.sleepingdreamlessly.osu.input.InputManager;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
-import com.sleepingdreamlessly.osu.objects.KeyOverlay;
+import com.sleepingdreamlessly.osu.objects.InputOverlay;
 import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
 import com.sleepingdreamlessly.osu.objects.std.OsuHitCircle;
 import com.sleepingdreamlessly.osu.rulesets.UI;
@@ -28,11 +27,10 @@ public class Game implements Runnable
 	
 	private boolean running, graphicsready = false;
 	
-	private KeyManager keyManager;
-	private MidiManager midiManager;
+	private InputManager inputManager;
 	
 	private GameCamera gameCamera;
-	private KeyOverlay keyOverlay;
+	private InputOverlay inputOverlay;
 	private UI ui;
 	
 	public ArrayList<HitObject> _hitobjects = new ArrayList<>();
@@ -51,7 +49,7 @@ public class Game implements Runnable
 	private long time_garbageCollection_last = 0;
 	private boolean garbageCollection_inProgress = false;
 	
-	public double ApproachRate = 10, CircleSize = 5, OverallDifficulty = 7, HPDrainRate = 6;
+	public double ApproachRate = 9, CircleSize = 4.2, OverallDifficulty = 7, HPDrainRate = 6;
 	
 	private int width, height = 0;
 	
@@ -60,15 +58,15 @@ public class Game implements Runnable
 		this.width = width;
 		this.height = height;
 		this.display = new Display(title, width, height);
-		this.keyManager = new KeyManager();
-		this.midiManager = new MidiManager();
 		this.ui = new UI(this);
 	}
 	
 	private void init()
 	{
+		handler = new Handler(this);
+		
 		display.createDisplay();
-		display.getFrame().addKeyListener(keyManager);
+		
 		Assets.init(this);
 
 		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2000));
@@ -89,20 +87,18 @@ public class Game implements Runnable
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 0, 4800, 3));
 		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 348, 4900, 4));
 		
-		// midiManager.rescan();
-		midiManager.scan();
+		inputManager = new InputManager(handler);
 		
 		gameCamera = new GameCamera(this, 0, 0);
-		keyOverlay = new KeyOverlay(this, this.keyManager);
-		handler = new Handler(this);
+		inputOverlay = new InputOverlay(handler);
 	}
 	
 	private void tick()
 	{
 		this.updateCurrentTime();
 		
-		keyManager.tick();
-		keyOverlay.tick();
+		inputManager.tick();
+		inputOverlay.tick();
 		
 		for (HitObject h : _hitobjects)
 		{
@@ -131,7 +127,7 @@ public class Game implements Runnable
 			for (HitObject h : _hitobjectGarbageCollected)
 				_hitobjects.remove(h);
 			
-			System.out.println("Destroyed " + _hitobjectGarbageCollected.size() + " objects.");
+			// System.out.println("Destroyed " + _hitobjectGarbageCollected.size() + " objects.");
 			_hitobjectGarbageCollected.clear();
 			
 			garbageCollection_inProgress = false;
@@ -154,8 +150,7 @@ public class Game implements Runnable
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width, height);
 		
-		// draw playfield @TODO: finish this later and make the playfield actually work
-		
+		// draw playfield @TODO: finish this later and make the playfield scaling actually work
 		g.setColor(Color.GREEN);
 		g.drawRect
 		(
@@ -179,7 +174,7 @@ public class Game implements Runnable
 		for (GameObject h : _hitobjects)
 			h.render(this.ui);
 		
-		keyOverlay.render(this.ui);
+		inputOverlay.render(this.ui);
 		
 		if (!graphicsready)
 		{
@@ -265,9 +260,9 @@ public class Game implements Runnable
 		return gameCamera;
 	}
 	
-	public KeyManager getKeyManager()
+	public InputManager getInputManager()
 	{
-		return keyManager;
+		return inputManager;
 	}
 	
 	public int getWidth()
@@ -284,7 +279,12 @@ public class Game implements Runnable
 	{
 		return g;
 	}
-
+	
+	public Display getDisplay()
+	{
+		return display;
+	}
+	
 	public long getStartTime()
 	{
 		return time_init;
