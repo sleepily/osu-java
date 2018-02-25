@@ -8,6 +8,7 @@ import com.sleepingdreamlessly.osu.input.midi.MidiManager;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.objects.KeyOverlay;
+import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
 import com.sleepingdreamlessly.osu.objects.std.OsuHitCircle;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 
