@@ -24,7 +24,7 @@ public class MidiManager
 	
 	public void init()
 	{
-		rescan();
+		scan();
 	}
 	
 	public void tick()
