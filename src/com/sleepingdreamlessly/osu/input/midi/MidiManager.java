@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class MidiManager
 {
 	private ArrayList<MidiDevice> devices = new ArrayList<>();
-	public ArrayList<MidiDevice> devicesOpened = new ArrayList<>();
+	public ArrayList<MidiDevice> devicesOpened = new ArrayList<>(); //@TODO: use this to get in/output to multiple devices
 	public MidiDevice deviceOpened;
 	
 	private MidiTranslator translator = new MidiTranslator();
@@ -105,25 +105,5 @@ public class MidiManager
 		}
 		
 		open(midiDeviceSelectPrompt());
-	}
-	
-	public class MidiInputReceiver implements Receiver
-	{
-		public String name;
-		
-		public MidiInputReceiver(String name)
-		{
-			this.name = name;
-		}
-		
-		public void send(MidiMessage msg, long time)
-		{
-			System.out.println("MIDI received: " + msg.getLength() + " at " + time + "[ms?]");
-		}
-		
-		public void close()
-		{
-		
-		}
 	}
 }
