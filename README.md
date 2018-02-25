@@ -10,9 +10,10 @@ The goal is to provide a highly differenciated gameplay by allowing multiple gam
 - jubeat
 
 ### Features TODO:
+- make osu! beatmaps playable (beatmap converter etc)
 - MIDI device support: *in progress*
   - use jogwheels (DJ controllers) for SDVX FX *in progress*
-  - use launchpad/midifighter for jubeat *in progress*
+  - use launchpad/midifighter for jubeat
 - song/beatmap editor
 - tatacon controller support?
 - touchscreen support
