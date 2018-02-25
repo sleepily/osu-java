@@ -1,4 +1,4 @@
-package com.sleepingdreamlessly.osu.input;
+package com.sleepingdreamlessly.osu.input.midi;
 
 import javax.sound.midi.MidiDevice;
 

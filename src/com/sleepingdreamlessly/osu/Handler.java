@@ -1,7 +1,7 @@
 package com.sleepingdreamlessly.osu;
 
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
-import com.sleepingdreamlessly.osu.input.KeyManager;
+import com.sleepingdreamlessly.osu.input.keyboard.KeyManager;
 
 public class Handler
 {

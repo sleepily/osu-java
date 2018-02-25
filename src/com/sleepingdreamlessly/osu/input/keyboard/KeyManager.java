@@ -1,4 +1,4 @@
-package com.sleepingdreamlessly.osu.input;
+package com.sleepingdreamlessly.osu.input.keyboard;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -3,7 +3,7 @@ package com.sleepingdreamlessly.osu.objects;
 import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
-import com.sleepingdreamlessly.osu.input.KeyManager;
+import com.sleepingdreamlessly.osu.input.keyboard.KeyManager;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 
 public class KeyOverlay extends GameObject

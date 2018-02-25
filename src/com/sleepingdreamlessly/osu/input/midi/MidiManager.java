@@ -1,9 +1,8 @@
-package com.sleepingdreamlessly.osu.input;
+package com.sleepingdreamlessly.osu.input.midi;
 
 import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 import java.util.Scanner;
 
 /*

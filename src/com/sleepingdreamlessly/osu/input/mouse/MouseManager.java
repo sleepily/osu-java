@@ -1,4 +1,4 @@
-package com.sleepingdreamlessly.osu.input;
+package com.sleepingdreamlessly.osu.input.mouse;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

@@ -3,12 +3,11 @@ package com.sleepingdreamlessly.osu;
 import com.sleepingdreamlessly.osu.display.Display;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
-import com.sleepingdreamlessly.osu.input.KeyManager;
-import com.sleepingdreamlessly.osu.input.MidiManager;
+import com.sleepingdreamlessly.osu.input.keyboard.KeyManager;
+import com.sleepingdreamlessly.osu.input.midi.MidiManager;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.objects.KeyOverlay;
-import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
 import com.sleepingdreamlessly.osu.objects.std.OsuHitCircle;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 
