@@ -13,20 +13,19 @@ public class ManiaHitObject extends HitObject
 	public ManiaHitObject(Game game, String id, int x, long time)
 	{
 		super(game, id, x, 0, time);
-		this.pos.x = ((pos.x - 2) * 60 + UI.getJudgementLine().x); // convert index to screen coordinate
-		this.TYPE = "mania";
 		this.scale = .25f;
+		this.pos.x = ((pos.x - 2) * this.sprite.i.getWidth(null) * this.scale + UI.getJudgementLine().x); // convert index to screen coordinate
+		this.TYPE = "mania";
 	}
 	
 	public void tick()
 	{
-		/*
-		if (game.getTime_rel_current_ms() > this.time)
+		double spriteHeight = this.sprite.i.getWidth(null) * scale;
+		if (this.pos.y > UI.getScreenVector().y + spriteHeight)
 			this.dispose = true;
-		*/
 		
 		this.calculateY();
-		// this.calculateAlpha();
+		this.calculateAlpha();
 	}
 	
 	public void render(UI ui)
