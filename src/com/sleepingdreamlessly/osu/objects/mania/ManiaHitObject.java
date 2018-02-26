@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu.objects.mania;
 
 import com.sleepingdreamlessly.osu.Game;
+import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.utils.Utils;
@@ -10,9 +11,9 @@ public class ManiaHitObject extends HitObject
 {
 	protected float alpha = 1f;
 	
-	public ManiaHitObject(Game game, String id, int x, long time)
+	public ManiaHitObject(Handler handler, String id, int x, long time)
 	{
-		super(game, id, x, 0, time);
+		super(handler, id, new Vector2(x, 0), time);
 		this.scale = .25f;
 		this.pos.x = ((pos.x - 2) * this.sprite.i.getWidth(null) * this.scale + UI.getJudgementLine().x); // convert index to screen coordinate
 		this.TYPE = "mania";

@@ -11,7 +11,7 @@ public class InputOverlay extends GameObject
 	
 	public InputOverlay(Handler handler)
 	{
-		super(handler.getGame(), "inputoverlay-background");
+		super(handler, "inputoverlay-background");
 		keys[0] = new InputOverlayKey(handler, "std_left", 0);
 		keys[1] = new InputOverlayKey(handler, "std_right", 1);
 		keys[2] = new InputOverlayKey(handler, "std_mouse_left", 2);
@@ -19,8 +19,8 @@ public class InputOverlay extends GameObject
 		this.sprite.i = Utils.rotateImage(this.sprite.i, 90);
 		
 		//@TODO: calculate correct position?
-		x = UI.getScreenVector().x;
-		y = UI.getScreenVector().y / 2;
+		pos.x = UI.getScreenVector().x;
+		pos.y = UI.getScreenVector().y / 2;
 		
 		width = sprite.i.getWidth(null);
 		height = sprite.i.getHeight(null);
@@ -36,8 +36,8 @@ public class InputOverlay extends GameObject
 	{
 		this.sprite.drawCenteredWithScale(
 			this.game,
-			(int)(x),
-			(int)(y),
+			(int)(pos.x),
+			(int)(pos.y),
 			1f,
 			1f
 		);

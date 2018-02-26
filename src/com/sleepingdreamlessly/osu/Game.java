@@ -69,23 +69,25 @@ public class Game implements Runnable
 		
 		Assets.init(this);
 
-		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2000));
-		_hitobjects.add(new ManiaHitObject(this, "note", 1, 2100));
-		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2200));
-		_hitobjects.add(new ManiaHitObject(this, "note", 3, 2300));
-		_hitobjects.add(new ManiaHitObject(this, "note", 1, 2500));
-		_hitobjects.add(new ManiaHitObject(this, "note", 3, 2600));
-		_hitobjects.add(new ManiaHitObject(this, "note", 0, 2700));
-		_hitobjects.add(new ManiaHitObject(this, "note", 2, 2800));
+		/*
+		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2000));
+		_hitobjects.add(new ManiaHitObject(handler, "note", 1, 2100));
+		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2200));
+		_hitobjects.add(new ManiaHitObject(handler, "note", 3, 2300));
+		_hitobjects.add(new ManiaHitObject(handler, "note", 1, 2500));
+		_hitobjects.add(new ManiaHitObject(handler, "note", 3, 2600));
+		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2700));
+		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2800));
+		*/
 
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 140, 200, 4000, 1));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 230, 214, 4200, 2));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 310, 134, 4400, 3));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 140, 200, 4000, 1));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 230, 214, 4200, 2));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 310, 134, 4400, 3));
 		
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 0, 0, 4600, 1));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 0, 348, 4700, 2));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 0, 4800, 3));
-		_hitobjects.add(new OsuHitCircle(this, "hitcircle", 512, 348, 4900, 4));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 100, 4600, 1));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 348, 4900, 2));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 300, 5200, 3));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 220, 140, 5500, 4));
 		
 		inputManager = new InputManager(handler);
 		
@@ -105,11 +107,8 @@ public class Game implements Runnable
 			h.tick();
 			
 			if (h.dispose)
-			{
-				System.out.println(h.toString());
 				if (!_hitobjectGarbageCollected.contains(h))
 					_hitobjectGarbageCollected.add(h);
-			}
 		}
 		
 		if (!garbageCollection_inProgress)
@@ -160,6 +159,7 @@ public class Game implements Runnable
 			(int)(UI.getScreenVector().y)
 		);
 		
+		/*
 		// draw mania judgement line @TODO: implement a graphical transition from mode to mode
 		g.setColor(Color.GREEN);
 		g.drawLine(this.width / 2 - 90, this.height - 100, this.width / 2 + 90, this.height - 100);
@@ -169,6 +169,7 @@ public class Game implements Runnable
 		g.setFont(new Font("Consolas", Font.PLAIN, 12));
 		g.drawString("FPS: " + Double.toString(_fps), 0, 10);
 		g.drawString("ms:  " + Double.toString(time_rel_current_ms), 0, 20);
+		*/
 		
 		// @TODO: render objects backwards (use object time as depth)
 		for (GameObject h : _hitobjects)
@@ -201,7 +202,7 @@ public class Game implements Runnable
 		long timer = 0;
 		int ticks = 0;
 		int second = 1000000000;
-		double reports = 1; // update rate per second
+		double reports = 2; // update rate per second
 		
 		while(running){
 			//update delta time

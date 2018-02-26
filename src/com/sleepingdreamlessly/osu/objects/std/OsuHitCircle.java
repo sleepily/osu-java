@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu.objects.std;
 
 import com.sleepingdreamlessly.osu.Game;
+import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
@@ -21,15 +22,15 @@ public class OsuHitCircle extends OsuHitObject
 	private long time_start_fadeIn = Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time);
 	private long time_fadedCompletely;
 	
-	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time)
+	public OsuHitCircle(Handler handler, String id, int pos_x, int pos_y, long time)
 	{
-		super(game, id, pos_x, pos_y, time);
+		super(handler, id, new Vector2(pos_x, pos_y), time);
 		this.init();
 	}
 	
-	public OsuHitCircle(Game game, String id, int pos_x, int pos_y, long time, int combo)
+	public OsuHitCircle(Handler handler, String id, int pos_x, int pos_y, long time, int combo)
 	{
-		super(game, id, pos_x, pos_y, time);
+		super(handler, id, new Vector2(pos_x, pos_y), time);
 		this.init();
 		this.sprite_combo = Assets.font_default_numbers[combo % 10];
 		this.isNewCombo = (combo == 1);
@@ -60,7 +61,7 @@ public class OsuHitCircle extends OsuHitObject
 				AudioPlayer.play(this.sample);
 			}
 			
-		if (game.getTime_rel_current_ms() >= time_fadedCompletely)
+		if (game.getTime_rel_current_ms() >= this.time) // time_fadedCompletely
 			this.dispose = true;
 	}
 	

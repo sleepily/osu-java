@@ -24,7 +24,7 @@ public class InputManager
 	{
 		this.handler = handler;
 		this.keyManager = new KeyManager();
-		this.mouseManager = new MouseManager();
+		this.mouseManager = new MouseManager(handler);
 		this.midiManager = new MidiManager();
 		init();
 	}
@@ -33,6 +33,7 @@ public class InputManager
 	{
 		handler.getGame().getDisplay().getFrame().addKeyListener(keyManager);
 		handler.getGame().getDisplay().getCanvas().addMouseListener(mouseManager);
+		handler.getGame().getDisplay().getCanvas().addMouseMotionListener(mouseManager);
 		midiManager.init();
 	}
 	

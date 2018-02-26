@@ -56,4 +56,9 @@ public class Vector2
 	{
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
+	
+	public double getDistance(Vector2 v)
+	{
+		return Math.sqrt((v.x - this.x * v.x - this.x) + (v.y - this.y * v.y - this.y));
+	}
 }

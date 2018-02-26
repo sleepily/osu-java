@@ -33,10 +33,10 @@ public class InputOverlayKey
 	public void tick()
 	{
 		isActive =
-			(this.inputID.equals("std_left")) ? handler.getInputManager().std_left :
-			(this.inputID.equals("std_right")) ? handler.getInputManager().std_right :
-			(this.inputID.equals("std_mouse_left")) ? handler.getInputManager().std_mouse_left :
-			(this.inputID.equals("std_mouse_right")) ? handler.getInputManager().std_mouse_right :
+			(this.inputID.equals("std_left"))         ? handler.getInputManager().std_left :
+			(this.inputID.equals("std_right"))        ? handler.getInputManager().std_right :
+			(this.inputID.equals("std_mouse_left"))   ? handler.getInputManager().std_mouse_left :
+			(this.inputID.equals("std_mouse_right"))  ? handler.getInputManager().std_mouse_right :
 				false;
 	}
 	
@@ -50,7 +50,6 @@ public class InputOverlayKey
 			return;
 		}
 		
-		System.out.println("Active");
 		this.sprite.drawCenteredWithScale(handler.getGame(), (int)pos.x, (int)pos.y, .9f, 1f);
 	}
 }

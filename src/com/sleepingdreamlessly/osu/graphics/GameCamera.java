@@ -16,8 +16,8 @@ public class GameCamera
 	}
 	
 	public void centerOnObject(GameObject object) {
-		offsetX = object.getX() - game.getWidth() / 2;
-		offsetY = object.getY() - game.getHeight() / 2;
+		offsetX = object.getPos().x - game.getWidth() / 2;
+		offsetY = object.getPos().y - game.getHeight() / 2;
 	}
 	
 	public void move(float amtX, float amtY) {

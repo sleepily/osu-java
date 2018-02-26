@@ -1,6 +1,8 @@
 package com.sleepingdreamlessly.osu.input.mouse;
 
+import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.input.InputManager;
+import com.sleepingdreamlessly.osu.utils.Vector2;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,7 +17,9 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	public boolean enter, exit = false;
 	public boolean move = false;
 	
-	public MouseManager()
+	public Vector2 pos = new Vector2();
+	
+	public MouseManager(Handler handler)
 	{
 		for (int m = 0; m < 3; m++)
 		{
@@ -26,7 +30,7 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	
 	public void tick()
 	{
-		for (int m = 0; m < 3; m++)
+		for (int m = 0; m < mouseButtons.length; m++)
 			mouseButtonsClicked[m] = false;
 		
 		this.move = false;
@@ -78,6 +82,7 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	public void mouseMoved(MouseEvent e)
 	{
 		this.move = true;
-		System.out.println("Mouse moved.");
+		
+		this.pos = new Vector2(e.getPoint().x, e.getPoint().y);
 	}
 }
