@@ -49,6 +49,7 @@ public class Game implements Runnable
 	private long time_garbageCollection_last = 0;
 	private boolean garbageCollection_inProgress = false;
 	
+	public int gamemode = 3;
 	public double ApproachRate = 9, CircleSize = 4.2, OverallDifficulty = 7, HPDrainRate = 6;
 	
 	private int width, height = 0;
