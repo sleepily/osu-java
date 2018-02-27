@@ -9,11 +9,13 @@ import com.sleepingdreamlessly.osu.utils.Vector2;
 
 public class ManiaHitObject extends HitObject
 {
+	public double OD, AR;
 	protected float alpha = 1f;
 	
 	public ManiaHitObject(Handler handler, String id, int x, long time)
 	{
 		super(handler, id, new Vector2(x, 0), time);
+		this.OD = handler.getGame().OverallDifficulty;
 		this.scale = .25f;
 		this.pos.x = ((pos.x - 2) * this.sprite.i.getWidth(null) * this.scale + UI.getJudgementLine().x); // convert index to screen coordinate
 		this.TYPE = "mania";

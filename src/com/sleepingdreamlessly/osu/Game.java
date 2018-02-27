@@ -69,7 +69,6 @@ public class Game implements Runnable
 		
 		Assets.init(this);
 
-		/*
 		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2000));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 1, 2100));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2200));
@@ -78,8 +77,8 @@ public class Game implements Runnable
 		_hitobjects.add(new ManiaHitObject(handler, "note", 3, 2600));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2700));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2800));
-		*/
 
+		/*
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 140, 200, 4000, 1));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 230, 214, 4200, 2));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 310, 134, 4400, 3));
@@ -88,6 +87,7 @@ public class Game implements Runnable
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 348, 4900, 2));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 300, 5200, 3));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 220, 140, 5500, 4));
+		*/
 		
 		inputManager = new InputManager(handler);
 		
