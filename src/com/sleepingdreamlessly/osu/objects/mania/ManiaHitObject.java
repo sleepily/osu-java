@@ -1,9 +1,9 @@
 package com.sleepingdreamlessly.osu.objects.mania;
 
-import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.rulesets.UI;
+import com.sleepingdreamlessly.osu.rulesets.judgement.ManiaJudgement;
 import com.sleepingdreamlessly.osu.utils.Utils;
 import com.sleepingdreamlessly.osu.utils.Vector2;
 
@@ -42,6 +42,13 @@ public class ManiaHitObject extends HitObject
 		);
 	}
 	
+	public void hit()
+	{
+		this.isHit = true;
+		this.time_hit = this.game.getTime_rel_current_ms();
+		this.judgement = ManiaJudgement.getJudgement(this);
+	}
+	
 	private void calculateY()
 	{		
 		// this.pos.y = (UI.getJudgementLine().y) - (this.time - game.getTime_rel_current_ms()) * (float)(2f / UI.getScrollSpeed());
@@ -52,7 +59,7 @@ public class ManiaHitObject extends HitObject
 					(float)(this.time - (10000f / UI.getScrollSpeed())),
 					(float)this.time,
 					(float)-50,
-					(float)UI.getJudgementLine().y
+					UI.getJudgementLine().y
 				);
 	}
 	

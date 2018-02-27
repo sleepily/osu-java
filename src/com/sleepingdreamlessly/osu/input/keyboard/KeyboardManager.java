@@ -3,11 +3,11 @@ package com.sleepingdreamlessly.osu.input.keyboard;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyManager implements KeyListener
+public class KeyboardManager implements KeyListener
 {
 	public boolean[] keys;
 	
-	public KeyManager()
+	public KeyboardManager()
 	{
 		keys = new boolean[256];
 	}
