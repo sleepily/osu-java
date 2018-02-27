@@ -23,6 +23,6 @@ public class MidiTranslator
 	
 	public void tick()
 	{
-		//@TODO: scan midi input and send to keyManager
+		//@TODO: scan midi input and send to keyboardManager
 	}
 }
