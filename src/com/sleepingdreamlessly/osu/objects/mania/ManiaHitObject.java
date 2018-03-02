@@ -67,7 +67,7 @@ public class ManiaHitObject extends HitObject
 		if (isHit)
 			return false;
 		
-		boolean key = this.handler.getInputManager().maniaKeys[0];
+		boolean key = this.handler.getInputManager().maniaKeys[this.column];
 		
 		if (!key)
 			return false;
