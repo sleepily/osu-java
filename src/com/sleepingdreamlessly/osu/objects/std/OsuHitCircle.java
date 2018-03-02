@@ -5,6 +5,7 @@ import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.objects.OsuHitObject;
+import com.sleepingdreamlessly.osu.rulesets.judgement.OsuJudgement;
 import com.sleepingdreamlessly.osu.rulesets.std.CircleSize;
 import com.sleepingdreamlessly.osu.rulesets.std.Timings;
 import com.sleepingdreamlessly.osu.rulesets.UI;
@@ -52,6 +53,8 @@ public class OsuHitCircle extends OsuHitObject
 	
 	public void tick()
 	{
+		this.keyDown();
+		
 		if (game.getTime_rel_current_ms() <= this.time)
 			this.calculateAlphaFadeIn();
 		
