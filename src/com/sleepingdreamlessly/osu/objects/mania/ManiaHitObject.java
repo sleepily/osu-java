@@ -11,7 +11,7 @@ public class ManiaHitObject extends HitObject
 {
 	public double OD, AR;
 	protected float alpha = 1f;
-	protected int column = 0;
+	protected int column;
 	
 	public ManiaHitObject(Handler handler, String id, int x, long time)
 	{
