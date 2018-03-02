@@ -26,4 +26,22 @@ public class AudioPlayer
 		})
 		.start();
 	}
+	
+	public static long getPosition(AudioClip input)
+	{
+		try
+		{
+			AudioInputStream stream = input.getAudioStream();
+			
+			Clip clip = AudioSystem.getClip();
+			
+			return Math.round(clip.getMicrosecondPosition() / 1000);
+		}
+		catch (Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+		
+		return 0;
+	}
 }
