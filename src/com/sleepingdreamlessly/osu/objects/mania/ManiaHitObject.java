@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu.objects.mania;
 
 import com.sleepingdreamlessly.osu.Handler;
+import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.rulesets.judgement.ManiaJudgement;
@@ -12,6 +13,8 @@ public class ManiaHitObject extends HitObject
 	public double OD, AR;
 	protected float alpha = 1f;
 	protected int column;
+	
+	protected Vector2 judgementSpriteOffset = new Vector2(0, 100);
 	
 	public ManiaHitObject(Handler handler, String id, int x, long time)
 	{
@@ -44,6 +47,18 @@ public class ManiaHitObject extends HitObject
 			this.scale,
 			this.alpha
 		);
+		
+		if (!isHit)
+			return;
+		
+		this.judgementSprite.drawCenteredWithScale
+		(
+			this.game,
+			(int)(pos.x + judgementSpriteOffset.x),
+			(int)(pos.y + judgementSpriteOffset.y),
+			1f,
+			1f
+		);
 	}
 	
 	public boolean keyDown()
@@ -71,7 +86,10 @@ public class ManiaHitObject extends HitObject
 		this.time_hit = this.game.getTime_rel_current_ms();
 		
 		if (ManiaJudgement.getJudgement(this) == -1)
+		{
+			this.time_hit = -1;
 			return false;
+		}
 		
 		this.hit();
 		return true;
@@ -81,13 +99,12 @@ public class ManiaHitObject extends HitObject
 	{
 		this.isHit = true;
 		this.judgement = ManiaJudgement.getJudgement(this);
+		this.judgementSprite = Assets.getSprite(String.format("mania-hit%s", this.judgement));
 		System.out.println(this.judgement);
 	}
 	
 	private void calculateY()
-	{		
-		// this.pos.y = (UI.getJudgementLine().y) - (this.time - game.getTime_rel_current_ms()) * (float)(2f / UI.getScrollSpeed());
-		
+	{
 		this.pos.y = (int)
 			Utils.map(
 					(float)this.game.getTime_rel_current_ms(),

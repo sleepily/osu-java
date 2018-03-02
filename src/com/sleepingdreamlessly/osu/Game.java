@@ -70,7 +70,6 @@ public class Game implements Runnable
 		
 		Assets.init(this);
 
-		/*
 		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2000));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 1, 2100));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2200));
@@ -80,6 +79,7 @@ public class Game implements Runnable
 		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2700));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2800));
 
+		/*
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 140, 200, 4000, 1));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 230, 214, 4200, 2));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 310, 134, 4400, 3));

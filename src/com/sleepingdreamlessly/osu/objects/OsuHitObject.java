@@ -16,8 +16,6 @@ public class OsuHitObject extends HitObject
 	public float scale = 1f;
 	public double radius = OBJECT_RADIUS * scale;
 	
-	protected Sprite judgementSprite;
-	
 	public Color comboColour = Color.GRAY;
 	
 	public boolean isNewCombo = false;

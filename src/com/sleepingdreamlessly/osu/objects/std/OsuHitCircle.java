@@ -57,12 +57,11 @@ public class OsuHitCircle extends OsuHitObject
 		if (game.getTime_rel_current_ms() <= this.time)
 			this.calculateAlphaFadeIn();
 		
-		if (!this.samplePlayed)
-			if (game.getTime_rel_current_ms() >= this.time)
-				this.playSample();
-		
-		if (this.time_hit == -1)
+		if (!isHit)
 			return;
+		
+		if (!this.samplePlayed)
+			this.playSample();
 		
 		if (game.getTime_rel_current_ms() >= this.time_hit + 400)
 			this.dispose = true;
@@ -70,9 +69,28 @@ public class OsuHitCircle extends OsuHitObject
 	
 	public void render(UI ui)
 	{
+		// dont render before fade in time to save ressources
 		if (game.getTime_rel_current_ms() < time_start_fadeIn)
 			return;
 		
+		if (this.judgementSprite == null)
+		{
+			this.renderHitCircle(ui);
+			return;
+		}
+		
+		this.judgementSprite.drawCenteredWithScale
+		(
+			this.game,
+			(int)(pos.x + ui.getPlayfieldPadding().x),
+			(int)(pos.y + ui.getPlayfieldPadding().y),
+			1f,
+			this.alpha
+		);
+	}
+	
+	private void renderHitCircle(UI ui)
+	{
 		this.sprite.drawCenteredWithSize
 		(
 			this.game,
@@ -81,7 +99,7 @@ public class OsuHitCircle extends OsuHitObject
 			CircleSize.circleSize_hitCircle(game.CircleSize),
 			this.alpha
 		);
-		
+	
 		this.hitcircleoverlay.drawCenteredWithSize
 		(
 			this.game,
@@ -90,7 +108,7 @@ public class OsuHitCircle extends OsuHitObject
 			CircleSize.circleSize_hitCircle(game.CircleSize),
 			this.alpha
 		);
-		
+	
 		this.sprite_combo.drawCenteredWithScale
 		(
 			this.game,
@@ -99,25 +117,13 @@ public class OsuHitCircle extends OsuHitObject
 			Utils.mapAndClamp((float)CircleSize.circleSize_hitCircle(game.CircleSize), 20, 120,.4f, 1f),
 			this.alpha
 		);
-		
+	
 		this.approachCircle.drawCenteredWithSize
 		(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
 			CircleSize.circleSize_approachCircle(game.CircleSize, game.ApproachRate, game.getTime_rel_current_ms(), this.time),
-			this.alpha
-		);
-		
-		if (this.judgementSprite == null)
-			return;
-		
-		this.judgementSprite.drawCenteredWithScale
-		(
-			this.game,
-			(int)(pos.x + ui.getPlayfieldPadding().x),
-			(int)(pos.y + ui.getPlayfieldPadding().y),
-			1f,
 			this.alpha
 		);
 	}
@@ -130,7 +136,8 @@ public class OsuHitCircle extends OsuHitObject
 	
 	protected void calculateAlphaFadeIn()
 	{
-		this.alpha = Utils.mapAndClamp(
+		this.alpha = Utils.mapAndClamp
+		(
 			game.getTime_rel_current_ms(),
 			Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time),
 			Timings.getTimeForCircle_visible(game.ApproachRate, this.time),
