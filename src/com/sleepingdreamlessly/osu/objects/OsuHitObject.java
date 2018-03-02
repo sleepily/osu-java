@@ -75,7 +75,10 @@ public class OsuHitObject extends HitObject
 		this.judgement = OsuJudgement.getJudgement(this);
 		
 		if (this.judgement == -1)
+		{
+			this.time_hit = -1;
 			return false;
+		}
 		
 		this.hit();
 		return true;
