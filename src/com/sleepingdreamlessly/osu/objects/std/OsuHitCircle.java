@@ -5,6 +5,7 @@ import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.objects.OsuHitObject;
+import com.sleepingdreamlessly.osu.rulesets.judgement.OsuJudgement;
 import com.sleepingdreamlessly.osu.rulesets.std.CircleSize;
 import com.sleepingdreamlessly.osu.rulesets.std.Timings;
 import com.sleepingdreamlessly.osu.rulesets.UI;
@@ -19,6 +20,7 @@ public class OsuHitCircle extends OsuHitObject
 	
 	private long time_start_fadeIn = Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time);
 	private long time_fadedCompletely;
+	private long time_miss;
 	
 	public OsuHitCircle(Handler handler, String id, int pos_x, int pos_y, long time)
 	{
@@ -32,6 +34,7 @@ public class OsuHitCircle extends OsuHitObject
 		this.init();
 		this.sprite_combo = Assets.font_default_numbers[combo % 10];
 		this.isNewCombo = (combo == 1);
+		this.time_miss = (int)OsuJudgement.getHitWindows(this)[3];
 	}
 	
 	private void init()
@@ -57,14 +60,22 @@ public class OsuHitCircle extends OsuHitObject
 		if (game.getTime_rel_current_ms() <= this.time)
 			this.calculateAlphaFadeIn();
 		
+		if (game.getTime_rel_current_ms() >= this.getDisposeTime())
+			this.dispose = true;
+		
 		if (!isHit)
 			return;
 		
 		if (!this.samplePlayed)
 			this.playSample();
+	}
+	
+	private long getDisposeTime()
+	{
+		if (isHit)
+			return this.time_hit + this.time_miss;
 		
-		if (game.getTime_rel_current_ms() >= this.time_hit + 400)
-			this.dispose = true;
+		return this.time + this.time_miss;
 	}
 	
 	public void render(UI ui)
@@ -72,8 +83,8 @@ public class OsuHitCircle extends OsuHitObject
 		// dont render before fade in time to save ressources
 		if (game.getTime_rel_current_ms() < time_start_fadeIn)
 			return;
-		
-		if (this.judgementSprite == null)
+			
+		if (!isHit)
 		{
 			this.renderHitCircle(ui);
 			return;

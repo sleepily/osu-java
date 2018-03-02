@@ -14,7 +14,7 @@ public class ManiaHitObject extends HitObject
 	protected float alpha = 1f;
 	protected int column;
 	
-	protected Vector2 judgementSpriteOffset = new Vector2(0, 100);
+	protected Vector2 judgementSpriteOffset;
 	
 	public ManiaHitObject(Handler handler, String id, int x, long time)
 	{
@@ -23,6 +23,7 @@ public class ManiaHitObject extends HitObject
 		this.scale = .25f;
 		this.column = x;
 		this.pos.x = ((pos.x - 2) * this.sprite.i.getWidth(null) * this.scale + UI.getJudgementLine().x); // convert index to screen coordinate
+		this.judgementSpriteOffset = new Vector2(this.pos.x, UI.getJudgementLine().y -200);
 		this.TYPE = "mania";
 	}
 	
@@ -31,7 +32,7 @@ public class ManiaHitObject extends HitObject
 		this.keyDown();
 		
 		double spriteHeight = this.sprite.i.getWidth(null) * scale;
-		if (this.pos.y > UI.getScreenVector().y + spriteHeight)
+		if (this.pos.y > UI.getScreenVector().y + spriteHeight * 3)
 			this.dispose = true;
 		
 		this.calculateY();
@@ -54,8 +55,8 @@ public class ManiaHitObject extends HitObject
 		this.judgementSprite.drawCenteredWithScale
 		(
 			this.game,
-			(int)(pos.x + judgementSpriteOffset.x),
-			(int)(pos.y + judgementSpriteOffset.y),
+			(int)(judgementSpriteOffset.x),
+			(int)(judgementSpriteOffset.y),
 			1f,
 			1f
 		);
@@ -66,19 +67,7 @@ public class ManiaHitObject extends HitObject
 		if (isHit)
 			return false;
 		
-		boolean key = false;
-		
-		switch(this.column)
-		{
-			case 0:
-				key = this.handler.getInputManager().mania_0;
-			case 1:
-				key = this.handler.getInputManager().mania_1;
-			case 2:
-				key = this.handler.getInputManager().mania_2;
-			case 3:
-				key = this.handler.getInputManager().mania_3;
-		}
+		boolean key = this.handler.getInputManager().maniaKeys[0];
 		
 		if (!key)
 			return false;
