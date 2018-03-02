@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu.objects;
 
 import com.sleepingdreamlessly.osu.Handler;
+import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.rulesets.judgement.OsuJudgement;
@@ -15,12 +16,13 @@ public class OsuHitObject extends HitObject
 	public float scale = 1f;
 	public double radius = OBJECT_RADIUS * scale;
 	
-	private Sprite judgement;
+	protected Sprite judgementSprite;
 	
 	public Color comboColour = Color.GRAY;
 	
 	public boolean isNewCombo = false;
-	public int combo = 1;
+	public boolean isComboEnd = false;
+	public int combo = 0;
 	
 	public OsuHitObject(Handler handler, String id, int pos_x, int pos_y, long time)
 	{
@@ -70,7 +72,9 @@ public class OsuHitObject extends HitObject
 		if (distance > 0)
 			return false;
 		
-		if (OsuJudgement.getJudgement(this) == -1)
+		this.judgement = OsuJudgement.getJudgement(this);
+		
+		if (this.judgement == -1)
 			return false;
 		
 		this.hit();
@@ -80,13 +84,29 @@ public class OsuHitObject extends HitObject
 	public void hit()
 	{
 		this.isHit = true;
+		this.time_hit = handler.getGame().getTime_rel_current_ms();
+		
 		this.judgement = OsuJudgement.getJudgement(this);
-		// System.out.println(this.judgement);
+		
+		String comboEndString = ""; // geki (perfect combo) / katu (combo end)
+		
+		if (isComboEnd)
+			comboEndString = "k";
+		
+		this.judgementSprite = Assets.getSprite(String.format("hit%s%s", this.judgement, comboEndString));
+		System.out.println(this.judgement);
 	}
 	
 	public void tick()
 	{
 		this.keyDown();
+		
+		if (!isHit && game.getTime_rel_current_ms() > this.time + 300)
+		{
+			this.judgement = 0;
+			this.judgementSprite = Assets.getSprite("hit0");
+			System.out.println(this.judgement);
+		}
 	}
 	
 	public void render(UI ui)

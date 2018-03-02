@@ -5,7 +5,6 @@ import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.objects.OsuHitObject;
-import com.sleepingdreamlessly.osu.rulesets.judgement.OsuJudgement;
 import com.sleepingdreamlessly.osu.rulesets.std.CircleSize;
 import com.sleepingdreamlessly.osu.rulesets.std.Timings;
 import com.sleepingdreamlessly.osu.rulesets.UI;
@@ -62,7 +61,10 @@ public class OsuHitCircle extends OsuHitObject
 			if (game.getTime_rel_current_ms() >= this.time)
 				this.playSample();
 		
-		if (game.getTime_rel_current_ms() >= this.time)
+		if (this.time_hit == -1)
+			return;
+		
+		if (game.getTime_rel_current_ms() >= this.time_hit + 400)
 			this.dispose = true;
 	}
 	
@@ -71,7 +73,8 @@ public class OsuHitCircle extends OsuHitObject
 		if (game.getTime_rel_current_ms() < time_start_fadeIn)
 			return;
 		
-		this.sprite.drawCenteredWithSize(
+		this.sprite.drawCenteredWithSize
+		(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
@@ -79,7 +82,8 @@ public class OsuHitCircle extends OsuHitObject
 			this.alpha
 		);
 		
-		this.hitcircleoverlay.drawCenteredWithSize(
+		this.hitcircleoverlay.drawCenteredWithSize
+		(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
@@ -87,7 +91,8 @@ public class OsuHitCircle extends OsuHitObject
 			this.alpha
 		);
 		
-		this.sprite_combo.drawCenteredWithScale(
+		this.sprite_combo.drawCenteredWithScale
+		(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
@@ -95,11 +100,24 @@ public class OsuHitCircle extends OsuHitObject
 			this.alpha
 		);
 		
-		this.approachCircle.drawCenteredWithSize(
+		this.approachCircle.drawCenteredWithSize
+		(
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
 			CircleSize.circleSize_approachCircle(game.CircleSize, game.ApproachRate, game.getTime_rel_current_ms(), this.time),
+			this.alpha
+		);
+		
+		if (this.judgementSprite == null)
+			return;
+		
+		this.judgementSprite.drawCenteredWithScale
+		(
+			this.game,
+			(int)(pos.x + ui.getPlayfieldPadding().x),
+			(int)(pos.y + ui.getPlayfieldPadding().y),
+			1f,
 			this.alpha
 		);
 	}

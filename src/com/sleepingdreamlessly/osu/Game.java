@@ -50,7 +50,7 @@ public class Game implements Runnable
 	private boolean garbageCollection_inProgress = false;
 	
 	public int gamemode = 3;
-	public double ApproachRate = 9, CircleSize = 4.2, OverallDifficulty = 7, HPDrainRate = 6;
+	public double ApproachRate = 8, CircleSize = 3.5, OverallDifficulty = 4, HPDrainRate = 6;
 	
 	private int width, height = 0;
 	
@@ -70,6 +70,7 @@ public class Game implements Runnable
 		
 		Assets.init(this);
 
+		/*
 		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2000));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 1, 2100));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2200));
@@ -87,6 +88,14 @@ public class Game implements Runnable
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 348, 4900, 2));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 300, 5200, 3));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 220, 140, 5500, 4));
+		*/
+		
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 100, 300, 4000, 1));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 300, 4500, 2));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 300, 5000, 3));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 100, 100, 6000, 1));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 100, 6500, 2));
+		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 100, 7000, 3));
 		
 		inputManager = new InputManager(handler);
 		

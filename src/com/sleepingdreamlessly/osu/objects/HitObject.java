@@ -14,7 +14,7 @@ public class HitObject extends GameObject
 	protected Vector2 pos = new Vector2(); // STD: 0 to 512 X, 0 to 384 Y (osu!pixels), mania/catch: only x
 	public float scale = 1f;
 	public boolean isHit = false;
-	public long time_hit;
+	public long time_hit = -1;
 	public int judgement;
 	
 	public AudioClip sample;
