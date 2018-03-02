@@ -41,7 +41,7 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	{
 		this.mouseButtonsClicked[e.getButton()] = true;
 		
-		System.out.println("Mouse button " + e.getButton() + " clicked.");
+		// System.out.println("Mouse button " + e.getButton() + " clicked.");
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	{
 		this.mouseButtons[e.getButton()] = true;
 		
-		System.out.println("Mouse button " + e.getButton() + " held.");
+		// System.out.println("Mouse button " + e.getButton() + " held.");
 	}
 	
 	@Override
@@ -57,7 +57,7 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	{
 		this.mouseButtons[e.getButton()] = false;
 		
-		System.out.println("Mouse button " + e.getButton() + " released.");
+		// System.out.println("Mouse button " + e.getButton() + " released.");
 	}
 	
 	@Override

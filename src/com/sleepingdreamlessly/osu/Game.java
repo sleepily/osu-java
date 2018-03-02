@@ -79,7 +79,6 @@ public class Game implements Runnable
 		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2700));
 		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2800));
 
-		/*
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 140, 200, 4000, 1));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 230, 214, 4200, 2));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 310, 134, 4400, 3));
@@ -88,7 +87,6 @@ public class Game implements Runnable
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 348, 4900, 2));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 300, 5200, 3));
 		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 220, 140, 5500, 4));
-		*/
 		
 		inputManager = new InputManager(handler);
 		
@@ -160,7 +158,6 @@ public class Game implements Runnable
 			(int)(UI.getScreenVector().y)
 		);
 		
-		/*
 		// draw mania judgement line @TODO: implement a graphical transition from mode to mode
 		g.setColor(Color.GREEN);
 		g.drawLine(this.width / 2 - 90, this.height - 100, this.width / 2 + 90, this.height - 100);
@@ -170,13 +167,12 @@ public class Game implements Runnable
 		g.setFont(new Font("Consolas", Font.PLAIN, 12));
 		g.drawString("FPS: " + Double.toString(_fps), 0, 10);
 		g.drawString("ms:  " + Double.toString(time_rel_current_ms), 0, 20);
-		*/
 		
 		// @TODO: render objects backwards (use object time as depth)
 		for (GameObject h : _hitobjects)
 			h.render(this.ui);
 		
-		inputOverlay.render(this.ui);
+		// inputOverlay.render(this.ui);
 		
 		if (!graphicsready)
 		{

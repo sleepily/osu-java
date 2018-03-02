@@ -21,13 +21,14 @@ public class KeyboardManager implements KeyListener
 	public void keyPressed(KeyEvent e)
 	{
 		keys[e.getKeyCode()] = true;
-		System.out.println("KEY pressed: " + e.getKeyChar());
+		// System.out.println("KEY down: " + e.getKeyChar());
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
 		keys[e.getKeyCode()] = false;
+		// System.out.println("KEY up:   " + e.getKeyChar());
 	}
 
 	@Override

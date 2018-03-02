@@ -33,6 +33,7 @@ public class HitObject extends GameObject
 	public HitObject(Handler handler, String id, Vector2 pos, long time)
 	{
 		super(handler, id);
+		this.handler = handler;
 		this.game = handler.getGame();
 		this.time = time;
 		this.pos.x = pos.x;

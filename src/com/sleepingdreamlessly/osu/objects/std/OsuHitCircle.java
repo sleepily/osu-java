@@ -1,11 +1,9 @@
 package com.sleepingdreamlessly.osu.objects.std;
 
-import com.sleepingdreamlessly.osu.Game;
 import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
-import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.objects.OsuHitObject;
 import com.sleepingdreamlessly.osu.rulesets.std.CircleSize;
 import com.sleepingdreamlessly.osu.rulesets.std.Timings;
@@ -43,25 +41,25 @@ public class OsuHitCircle extends OsuHitObject
 		this.hitcircleoverlay = Assets.hitcircleoverlay;
 		this.sprite_combo = Assets.font_combo_numbers[combo];
 		this.TYPE = "std";
-		this.pos = new Vector2(
-			(int)Utils.mapAndClamp(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
-			(int)Utils.mapAndClamp(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
-		);
+		this.pos =
+			new Vector2
+			(
+				(int)Utils.mapAndClamp(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
+				(int)Utils.mapAndClamp(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
+			);
 		this.sample = Assets.getSample("soft-hitnormal");
 	}
 	
 	public void tick()
 	{
-		this.calculateAlpha();
+		if (game.getTime_rel_current_ms() <= this.time)
+			this.calculateAlphaFadeIn();
 		
 		if (!this.samplePlayed)
 			if (game.getTime_rel_current_ms() >= this.time)
-			{
-				this.samplePlayed = true;
-				AudioPlayer.play(this.sample);
-			}
-			
-		if (game.getTime_rel_current_ms() >= this.time) // time_fadedCompletely
+				this.playSample();
+		
+		if (game.getTime_rel_current_ms() >= this.time)
 			this.dispose = true;
 	}
 	
@@ -103,7 +101,13 @@ public class OsuHitCircle extends OsuHitObject
 		);
 	}
 	
-	protected void calculateAlpha()
+	protected void playSample()
+	{
+		this.samplePlayed = true;
+		AudioPlayer.play(this.sample);
+	}
+	
+	protected void calculateAlphaFadeIn()
 	{
 		this.alpha = Utils.mapAndClamp(
 			game.getTime_rel_current_ms(),

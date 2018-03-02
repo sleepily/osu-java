@@ -46,8 +46,11 @@ public class OsuHitObject extends HitObject
 		this.scale = (float) ((1.0f - 0.7f * (this.CS - 5) / 5) / 2);
 	}
 	
-	public boolean checkForCursorInHitbox(Vector2 cursorPos)
+	public boolean mousePressed(Vector2 cursorPos)
 	{
+		if (!this.handler.getInputManager().std_mouse_left)
+			return false;
+		
 		double distance = this.pos.getDistance(cursorPos) - this.radius - Cursor.radius;
 		
 		if (distance > 0)
