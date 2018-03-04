@@ -95,13 +95,14 @@ public class ManiaHitObject extends HitObject
 	private void calculateY()
 	{
 		this.pos.y = (int)
-			Utils.map(
-					(float)this.game.getTime_rel_current_ms(),
-					(float)(this.time - (10000f / UI.getScrollSpeed())),
-					(float)this.time,
-					(float)-50,
-					UI.getJudgementLine().y
-				);
+			Utils.map
+			(
+				(float)this.game.getTime_rel_current_ms(),
+				(float)(this.time - (10000f / UI.getScrollSpeed())),
+				(float)this.time,
+				(float)-50,
+				UI.getJudgementLine().y
+			);
 	}
 	
 	protected void calculateAlpha()
