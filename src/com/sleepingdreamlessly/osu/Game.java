@@ -1,14 +1,14 @@
 package com.sleepingdreamlessly.osu;
 
+import com.sleepingdreamlessly.osu.beatmaps.Beatmap;
 import com.sleepingdreamlessly.osu.display.Display;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
 import com.sleepingdreamlessly.osu.input.InputManager;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
+import com.sleepingdreamlessly.osu.objects.HitObjectGarbageCollector;
 import com.sleepingdreamlessly.osu.objects.InputOverlay;
-import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
-import com.sleepingdreamlessly.osu.objects.std.OsuHitCircle;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 
 import java.awt.*;
@@ -33,9 +33,10 @@ public class Game implements Runnable
 	private InputOverlay inputOverlay;
 	private UI ui;
 	
-	public ArrayList<HitObject> _hitobjects = new ArrayList<>();
-	
 	private Handler handler;
+	
+	public Beatmap beatmap;
+	public HitObjectGarbageCollector garbageCollector;
 	
 	private long time_init = System.nanoTime();
 	private long time_init_ms = time_init / 1000000;
@@ -43,11 +44,6 @@ public class Game implements Runnable
 	private long time_current_ms = time_init / 1000000;
 	private long time_rel_current = 0;
 	private long time_rel_current_ms = 0;
-	
-	public ArrayList<HitObject> _hitobjectGarbageCollected = new ArrayList<>();
-	private long time_garbageCollection_interval_ms = 40;
-	private long time_garbageCollection_last = 0;
-	private boolean garbageCollection_inProgress = false;
 	
 	public int gamemode = 3;
 	public double ApproachRate = 8, CircleSize = 3.5, OverallDifficulty = 4, HPDrainRate = 6;
@@ -69,38 +65,14 @@ public class Game implements Runnable
 		display.createDisplay();
 		
 		Assets.init(this);
-
-		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2000));
-		_hitobjects.add(new ManiaHitObject(handler, "note", 1, 2100));
-		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2200));
-		_hitobjects.add(new ManiaHitObject(handler, "note", 3, 2300));
-		_hitobjects.add(new ManiaHitObject(handler, "note", 1, 2500));
-		_hitobjects.add(new ManiaHitObject(handler, "note", 3, 2600));
-		_hitobjects.add(new ManiaHitObject(handler, "note", 0, 2700));
-		_hitobjects.add(new ManiaHitObject(handler, "note", 2, 2800));
-
-		/*
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 140, 200, 4000, 1));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 230, 214, 4200, 2));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 310, 134, 4400, 3));
-		
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 100, 4600, 1));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 348, 4900, 2));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 300, 5200, 3));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 220, 140, 5500, 4));
-		*/
-		
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 100, 300, 4000, 1));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 300, 4500, 2));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 300, 5000, 3));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 100, 100, 6000, 1));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 200, 100, 6500, 2));
-		_hitobjects.add(new OsuHitCircle(handler, "hitcircle", 300, 100, 7000, 3));
 		
 		inputManager = new InputManager(handler);
 		
 		gameCamera = new GameCamera(this, 0, 0);
 		inputOverlay = new InputOverlay(handler);
+		garbageCollector = new HitObjectGarbageCollector(handler);
+		
+		beatmap = new Beatmap(handler);
 	}
 	
 	private void tick()
@@ -110,35 +82,8 @@ public class Game implements Runnable
 		inputManager.tick();
 		inputOverlay.tick();
 		
-		for (HitObject h : _hitobjects)
-		{
-			h.tick();
-			
-			if (h.dispose)
-				if (!_hitobjectGarbageCollected.contains(h))
-					_hitobjectGarbageCollected.add(h);
-		}
-		
-		if (!garbageCollection_inProgress)
-			garbageCollection();
-	}
-	
-	private void garbageCollection()
-	{
-		if (time_garbageCollection_interval_ms <= time_rel_current_ms - time_garbageCollection_last)
-		{
-			garbageCollection_inProgress = true;
-			
-			time_garbageCollection_last += time_garbageCollection_interval_ms;
-			
-			for (HitObject h : _hitobjectGarbageCollected)
-				_hitobjects.remove(h);
-			
-			// System.out.println("Destroyed " + _hitobjectGarbageCollected.size() + " objects.");
-			_hitobjectGarbageCollected.clear();
-			
-			garbageCollection_inProgress = false;
-		}
+		beatmap.tick();
+		garbageCollector.tick();
 	}
 	
 	private void render()
@@ -177,9 +122,7 @@ public class Game implements Runnable
 		g.drawString("FPS: " + Double.toString(_fps), 0, 10);
 		g.drawString("ms:  " + Double.toString(time_rel_current_ms), 0, 20);
 		
-		// @TODO: render objects backwards (use object time as depth)
-		for (GameObject h : _hitobjects)
-			h.render(this.ui);
+		beatmap.render(this.ui);
 		
 		// inputOverlay.render(this.ui);
 		
@@ -335,10 +278,5 @@ public class Game implements Runnable
 	public UI getUI()
 	{
 		return ui;
-	}
-
-	public ArrayList<HitObject> getHitObjects()
-	{
-		return _hitobjects;
 	}
 }
