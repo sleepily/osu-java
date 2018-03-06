@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu;
 
 import com.sleepingdreamlessly.osu.beatmaps.Beatmap;
+import com.sleepingdreamlessly.osu.beatmaps.BeatmapConverter;
 import com.sleepingdreamlessly.osu.display.Display;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
@@ -13,6 +14,7 @@ import com.sleepingdreamlessly.osu.rulesets.UI;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Game implements Runnable
@@ -73,6 +75,7 @@ public class Game implements Runnable
 		garbageCollector = new HitObjectGarbageCollector(handler);
 		
 		beatmap = new Beatmap(handler);
+		BeatmapConverter.read(new File(Assets.getSongsPath() + "tear rain test.osu"));;
 	}
 	
 	private void tick()

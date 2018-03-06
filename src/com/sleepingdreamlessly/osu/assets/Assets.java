@@ -13,6 +13,7 @@ public class Assets
 	
 	private static String name_skin = "dracula_final"; // @TODO: read this from (osu) ini
 	private static String path_skin = "\\res\\skins\\" + name_skin + "\\";
+	private static String path_songs = "\\res\\songs\\";
 	private static String name_font_default = "default"; // @TODO: read these from skin.ini
 	private static String name_font_score = "score";
 	private static String name_font_combo = "combo";
@@ -119,6 +120,11 @@ public class Assets
 	public static String getSkinPath()
 	{
 		return path_skin;
+	}
+	
+	public static String getSongsPath()
+	{
+		return path_songs;
 	}
 	
 	public static Sprite getSprite(String id)

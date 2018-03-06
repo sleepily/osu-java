@@ -1,5 +1,12 @@
 package com.sleepingdreamlessly.osu.beatmaps;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
 import com.sleepingdreamlessly.osu.objects.std.OsuHitCircle;
 
@@ -10,13 +17,44 @@ public class BeatmapConverter
 	
 	}
 	
-	public static void read(Beatmap b)
+	public static void read(File f)
 	{
-	
+		try (BufferedReader br = new BufferedReader(new FileReader(f)))
+		{
+	    String line;
+	    ArrayList<ArrayList<String>> lines = new ArrayList<>();
+	    
+	    int index = 0;
+	    
+	    while ((line = br.readLine()) != null)
+	    {
+	    	String[] split = line.split(",");
+	    	
+	    	for (String s : split)
+	    		lines.get(index).add(s);
+
+	    	for (String s : lines.get(index))
+	    		System.out.println(s);
+	    	
+		    index++;
+	    }
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public static void readDummy(Beatmap b)
 	{
+		b.artist = "cysmiX";
+		b.title = "Tear Rain (feat. Emmy)";
+		b.author = "Monstrata";
+		
 		b._hitobjects.add(new ManiaHitObject(b.handler, "note", 1, 2100));
 		b._hitobjects.add(new ManiaHitObject(b.handler, "note", 3, 2300));
 		b._hitobjects.add(new ManiaHitObject(b.handler, "note", 1, 2500));
