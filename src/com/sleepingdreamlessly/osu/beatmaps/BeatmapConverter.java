@@ -1,10 +1,5 @@
 package com.sleepingdreamlessly.osu.beatmaps;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.sleepingdreamlessly.osu.objects.mania.ManiaHitObject;
@@ -17,35 +12,23 @@ public class BeatmapConverter
 	
 	}
 	
-	public static void read(File f)
+	public static void readHitObjectsFromLines(ArrayList<ArrayList<String>> lines, Beatmap b)
 	{
-		try (BufferedReader br = new BufferedReader(new FileReader(f)))
+		int combo = 0;
+		
+		for (ArrayList<String> line: lines)
 		{
-	    String line;
-	    ArrayList<ArrayList<String>> lines = new ArrayList<>();
-	    
-	    int index = 0;
-	    
-	    while ((line = br.readLine()) != null)
-	    {
-	    	String[] split = line.split(",");
-	    	
-	    	for (String s : split)
-	    		lines.get(index).add(s);
-
-	    	for (String s : lines.get(index))
-	    		System.out.println(s);
-	    	
-		    index++;
-	    }
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
+			int x = Integer.valueOf(line.get(0));
+			int y = Integer.valueOf(line.get(1));
+			long time = Long.valueOf(line.get(2));
+			byte type = Byte.valueOf(line.get(3));
+			
+			if (type - 4 <= 0)
+				combo = 0;
+			
+			combo++;
+			
+			b._hitobjects.add(new OsuHitCircle(b.handler, "hitcircle", x, y, time, combo));
 		}
 	}
 	

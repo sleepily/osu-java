@@ -1,7 +1,9 @@
 package com.sleepingdreamlessly.osu;
 
+import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.beatmaps.Beatmap;
 import com.sleepingdreamlessly.osu.beatmaps.BeatmapConverter;
+import com.sleepingdreamlessly.osu.beatmaps.BeatmapProcessor;
 import com.sleepingdreamlessly.osu.display.Display;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
@@ -48,7 +50,7 @@ public class Game implements Runnable
 	private long time_rel_current_ms = 0;
 	
 	public int gamemode = 3;
-	public double ApproachRate = 8, CircleSize = 3.5, OverallDifficulty = 4, HPDrainRate = 6;
+	public double ApproachRate = 9.6, CircleSize = 4, OverallDifficulty = 4, HPDrainRate = 6;
 	
 	private int width, height = 0;
 	
@@ -74,8 +76,8 @@ public class Game implements Runnable
 		inputOverlay = new InputOverlay(handler);
 		garbageCollector = new HitObjectGarbageCollector(handler);
 		
-		beatmap = new Beatmap(handler);
-		BeatmapConverter.read(new File(Assets.getSongsPath() + "tear rain test.osu"));;
+		beatmap = new Beatmap(handler, "140662 cYsmix feat. Emmy - Tear Rain", "cYsmix feat. Emmy - Tear Rain cut.osu");
+		beatmap.start();
 	}
 	
 	private void tick()
@@ -123,7 +125,7 @@ public class Game implements Runnable
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Consolas", Font.PLAIN, 12));
 		g.drawString("FPS: " + Double.toString(_fps), 0, 10);
-		g.drawString("ms:  " + Double.toString(time_rel_current_ms), 0, 20);
+		g.drawString("ms:  " + Double.toString(AudioPlayer.getPosition(beatmap.song)), 0, 20);
 		
 		beatmap.render(this.ui);
 		

@@ -1,10 +1,14 @@
 package com.sleepingdreamlessly.osu.beatmaps;
 
 import com.sleepingdreamlessly.osu.Handler;
+import com.sleepingdreamlessly.osu.assets.Assets;
+import com.sleepingdreamlessly.osu.audio.AudioClip;
+import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Beatmap
@@ -13,17 +17,34 @@ public class Beatmap
 	
 	public ArrayList<HitObject> _hitobjects = new ArrayList<>();
 	
+	public AudioClip song;
+	public String songName;
+	public long starttime;
+	
 	public String artist, title, author;
 	
-	public Beatmap(Handler handler)
+	public Beatmap(Handler handler, String dir, String osuFile)
 	{
 		this.handler = handler;
-		this.init();
+		
+		BeatmapConverter.readHitObjectsFromLines
+		(
+			BeatmapProcessor.getHitObjectLinesFromOsuFile
+			(
+				new File(System.getProperty("user.dir") + Assets.getSongsPath() + dir + "\\" + osuFile)
+			),
+			this
+		);
+		
+		String songName = "tearrain";
+		
+		this.song = new AudioClip(dir + "\\" + songName, true);
 	}
 	
-	private void init()
+	public void start()
 	{
-		BeatmapConverter.readDummy(this);
+		this.starttime = handler.getGame().getTime_rel_current_ms();
+		AudioPlayer.play(song);
 	}
 	
 	public void tick()
