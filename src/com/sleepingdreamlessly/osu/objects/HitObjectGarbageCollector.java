@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu.objects;
 
 import com.sleepingdreamlessly.osu.Handler;
+import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class HitObjectGarbageCollector
 	
 	private void garbageCollection()
 	{
-		if (time_garbageCollection_interval_ms <= handler.getGame().getTime_rel_current_ms() - time_garbageCollection_last)
+		if (time_garbageCollection_interval_ms <= AudioPlayer.getPosition(handler.getGame().beatmap.song) - time_garbageCollection_last)
 		{
 			garbageCollection_inProgress = true;
 			

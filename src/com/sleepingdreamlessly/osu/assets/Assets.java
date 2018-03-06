@@ -137,13 +137,13 @@ public class Assets
 		return null;
 	}
 	
-	public static AudioClip getSample(String id)
+	public static AudioClip getAudioClip(String id)
 	{
 		for (AudioClip a : _samples)
 			if (a.id.equals(id))
 				return a;
 		
-		System.out.println("WARNING: Sample " + id + " not found.");
+		System.out.println("WARNING: AudioClip (Sample) " + id + " not found.");
 		return null;
 	}
 }

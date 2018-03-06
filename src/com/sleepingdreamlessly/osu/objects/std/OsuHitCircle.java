@@ -50,17 +50,19 @@ public class OsuHitCircle extends OsuHitObject
 				(int)Utils.mapAndClamp(this.pos.x, 0, game.getUI().getBaseSize().x, 0, game.getUI().getScreenVector().x),
 				(int)Utils.mapAndClamp(this.pos.y, 0, game.getUI().getBaseSize().y, 0, game.getUI().getScreenVector().y)
 			);
-		this.sample = Assets.getSample("soft-hitnormal");
+		this.sample = Assets.getAudioClip("soft-hitnormal");
 	}
 	
 	public void tick()
 	{
 		this.keyDown();
 		
-		if (game.getTime_rel_current_ms() <= this.time)
+		/*
+		if (AudioPlayer.getPosition(this.game.beatmap.song) <= this.time)
 			this.calculateAlphaFadeIn();
+		*/
 		
-		if (game.getTime_rel_current_ms() >= this.getDisposeTime())
+		if (AudioPlayer.getPosition(this.game.beatmap.song) >= this.getDisposeTime())
 			this.dispose = true;
 		
 		if (!isHit)
@@ -81,7 +83,7 @@ public class OsuHitCircle extends OsuHitObject
 	public void render(UI ui)
 	{
 		// dont render before fade in time to save ressources
-		if (game.getTime_rel_current_ms() < time_start_fadeIn)
+		if (AudioPlayer.getPosition(this.game.beatmap.song) < time_start_fadeIn)
 			return;
 			
 		if (!isHit)
@@ -134,7 +136,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
-			CircleSize.circleSize_approachCircle(game.CircleSize, game.ApproachRate, game.getTime_rel_current_ms(), this.time),
+			CircleSize.circleSize_approachCircle(game.CircleSize, game.ApproachRate, AudioPlayer.getPosition(this.game.beatmap.song), this.time),
 			this.alpha
 		);
 	}
@@ -149,7 +151,7 @@ public class OsuHitCircle extends OsuHitObject
 	{
 		this.alpha = Utils.mapAndClamp
 		(
-			game.getTime_rel_current_ms(),
+			AudioPlayer.getPosition(this.game.beatmap.song),
 			Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time),
 			Timings.getTimeForCircle_visible(game.ApproachRate, this.time),
 			0,

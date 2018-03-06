@@ -9,7 +9,8 @@ import java.io.File;
 public class AudioClip
 {
 	public String id;
-	private File file;
+	protected File file;
+	public boolean isSong = false;
 	
 	public AudioClip(String id)
 	{
@@ -17,22 +18,32 @@ public class AudioClip
 		this.load();
 	}
 	
-	private File load()
+	public AudioClip(String id, boolean isSong)
 	{
-		String samplePath = System.getProperty("user.dir") + Assets.getSkinPath() + id;
+		this.id = id;
+		this.isSong = isSong;
+		this.load();
+	}
+	
+	public File load()
+	{
+		String songPath =
+			this.isSong ?
+				System.getProperty("user.dir") + Assets.getSongsPath() + id :
+				System.getProperty("user.dir") + Assets.getSkinPath() + id;
 		
 		//@TODO: implement multiple audio formats
 		String audioformat = ".wav";
-		file = new File(samplePath + audioformat);
+		this.file = new File(songPath + audioformat);
 		
-		if (!file.exists())
+		if (!this.file.exists())
 		{
-			System.out.println("ERROR >> Couldn't find " + this.id + " sample at " + samplePath + ".wav");
+			System.out.println("ERROR >> Couldn't find " + this.id + " song at " + songPath + ".mp3");
 			return null;
 		}
 		
 		// System.out.println("Loading " + String.format("%1$26s", id) + " at " + samplePath + audioformat);
-		return file;
+		return this.file;
 	}
 	
 	/*

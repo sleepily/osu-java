@@ -2,6 +2,7 @@ package com.sleepingdreamlessly.osu.objects;
 
 import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.audio.AudioClip;
+import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.utils.Vector2;
@@ -46,7 +47,7 @@ public class HitObject extends GameObject
 	public void hit()
 	{
 		this.isHit = true;
-		this.time_hit = this.game.getTime_rel_current_ms();
+		this.time_hit = AudioPlayer.getPosition(this.game.beatmap.song);
 	}
 	
 	public void tick()

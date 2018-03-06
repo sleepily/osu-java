@@ -2,7 +2,7 @@ package com.sleepingdreamlessly.osu.objects;
 
 import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.assets.Assets;
-import com.sleepingdreamlessly.osu.graphics.Sprite;
+import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.rulesets.judgement.OsuJudgement;
 import com.sleepingdreamlessly.osu.utils.Vector2;
@@ -85,7 +85,7 @@ public class OsuHitObject extends HitObject
 	public void hit()
 	{
 		this.isHit = true;
-		this.time_hit = handler.getGame().getTime_rel_current_ms();
+		this.time_hit = AudioPlayer.getPosition(this.game.beatmap.song);
 		
 		this.judgement = OsuJudgement.getJudgement(this);
 		
@@ -102,7 +102,7 @@ public class OsuHitObject extends HitObject
 	{
 		this.keyDown();
 		
-		if (!isHit && game.getTime_rel_current_ms() > this.time + 300)
+		if (!isHit && AudioPlayer.getPosition(this.game.beatmap.song) > this.time + 300)
 		{
 			this.judgement = 0;
 			this.judgementSprite = Assets.getSprite("hit0");
