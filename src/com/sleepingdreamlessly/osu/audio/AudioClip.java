@@ -1,16 +1,23 @@
 package com.sleepingdreamlessly.osu.audio;
 
+import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.assets.Assets;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class AudioClip
 {
+	public Clip clip;
+	
 	public String id;
 	protected File file;
 	public boolean isSong = false;
+	
+	public long startTime;
+	public long position = 0;
 	
 	public AudioClip(String id)
 	{
@@ -38,11 +45,10 @@ public class AudioClip
 		
 		if (!this.file.exists())
 		{
-			System.out.println("ERROR >> Couldn't find " + this.id + " song at " + songPath + ".mp3");
+			System.err.println("ERROR >> Couldn't find " + this.id + " song at " + songPath + ".mp3");
 			return null;
 		}
 		
-		// System.out.println("Loading " + String.format("%1$26s", id) + " at " + samplePath + audioformat);
 		return this.file;
 	}
 	
@@ -61,5 +67,10 @@ public class AudioClip
 		}
 		
 		return null;
+	}
+	
+	public void tick(Handler handler)
+	{
+		this.position = AudioPlayer.getPosition(handler, this);
 	}
 }

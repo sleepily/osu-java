@@ -15,11 +15,17 @@ public class Beatmap
 {
 	public Handler handler;
 	
+	public File file;
+	
 	public ArrayList<HitObject> _hitobjects = new ArrayList<>();
 	
 	public AudioClip song;
-	public String songName;
 	public long starttime;
+	
+	public String AudioFilename;
+	public long AudioLeadIn;
+	public long PreviewTime;
+	public boolean Countdown;
 	
 	public String artist, title, author;
 	
@@ -27,24 +33,25 @@ public class Beatmap
 	{
 		this.handler = handler;
 		
-		BeatmapConverter.readHitObjectsFromLines
+		this.file = new File(System.getProperty("user.dir") + Assets.getSongsPath() + dir + "\\" + osuFile);
+		
+		BeatmapConverter.readGeneralInformationFromLines
 		(
-			BeatmapProcessor.getHitObjectLinesFromOsuFile
-			(
-				new File(System.getProperty("user.dir") + Assets.getSongsPath() + dir + "\\" + osuFile)
-			),
-			this
+			BeatmapProcessor.getGeneralInformation(this.file), this
 		);
 		
-		String songName = "tearrain";
+		BeatmapConverter.readHitObjectsFromLines
+		(
+			BeatmapProcessor.getHitObjectLinesFromOsuFile(this.file), this
+		);
 		
-		this.song = new AudioClip(dir + "\\" + songName, true);
+		this.song = new AudioClip(dir + "\\" + AudioFilename, true);
 	}
 	
 	public void start()
 	{
 		this.starttime = handler.getGame().getTime_rel_current_ms();
-		AudioPlayer.play(song);
+		AudioPlayer.play(handler, song);
 	}
 	
 	public void tick()

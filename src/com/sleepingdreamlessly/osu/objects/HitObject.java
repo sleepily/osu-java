@@ -47,7 +47,7 @@ public class HitObject extends GameObject
 	public void hit()
 	{
 		this.isHit = true;
-		this.time_hit = AudioPlayer.getPosition(this.game.beatmap.song);
+		this.time_hit = this.game.beatmap.song.position;
 	}
 	
 	public void tick()

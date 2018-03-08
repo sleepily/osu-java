@@ -1,23 +1,17 @@
 package com.sleepingdreamlessly.osu;
 
-import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.beatmaps.Beatmap;
-import com.sleepingdreamlessly.osu.beatmaps.BeatmapConverter;
-import com.sleepingdreamlessly.osu.beatmaps.BeatmapProcessor;
 import com.sleepingdreamlessly.osu.display.Display;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.graphics.GameCamera;
 import com.sleepingdreamlessly.osu.input.InputManager;
-import com.sleepingdreamlessly.osu.objects.GameObject;
-import com.sleepingdreamlessly.osu.objects.HitObject;
+import com.sleepingdreamlessly.osu.objects.Cursor;
 import com.sleepingdreamlessly.osu.objects.HitObjectGarbageCollector;
 import com.sleepingdreamlessly.osu.objects.InputOverlay;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.io.File;
-import java.util.ArrayList;
 
 public class Game implements Runnable
 {
@@ -26,7 +20,7 @@ public class Game implements Runnable
 	private Display display;
 	
 	private BufferStrategy bs;
-	private Graphics g;
+	public Graphics g;
 	private double _fps = 0;
 	
 	private boolean running, graphicsready = false;
@@ -36,6 +30,7 @@ public class Game implements Runnable
 	private GameCamera gameCamera;
 	private InputOverlay inputOverlay;
 	private UI ui;
+	private Cursor cursor;
 	
 	private Handler handler;
 	
@@ -48,6 +43,8 @@ public class Game implements Runnable
 	private long time_current_ms = time_init / 1000000;
 	private long time_rel_current = 0;
 	private long time_rel_current_ms = 0;
+	
+	public long offset = -1000;
 	
 	public int gamemode = 3;
 	public double ApproachRate = 9.6, CircleSize = 4, OverallDifficulty = 4, HPDrainRate = 6;
@@ -71,21 +68,25 @@ public class Game implements Runnable
 		Assets.init(this);
 		
 		inputManager = new InputManager(handler);
+		cursor = new Cursor(handler);
 		
 		gameCamera = new GameCamera(this, 0, 0);
 		inputOverlay = new InputOverlay(handler);
 		garbageCollector = new HitObjectGarbageCollector(handler);
 		
-		beatmap = new Beatmap(handler, "140662 cYsmix feat. Emmy - Tear Rain", "cYsmix feat. Emmy - Tear Rain cut.osu");
+		beatmap = new Beatmap(handler, "140662 cYsmix feat. Emmy - Tear Rain", "cYsmix feat. Emmy - Tear Rain (jonathanlfj) [Insane].osu");
 		beatmap.start();
 	}
 	
 	private void tick()
 	{
 		this.updateCurrentTime();
+		this.beatmap.song.tick(handler);
 		
 		inputManager.tick();
 		inputOverlay.tick();
+		
+		cursor.tick();
 		
 		beatmap.tick();
 		garbageCollector.tick();
@@ -108,6 +109,7 @@ public class Game implements Runnable
 		g.fillRect(0, 0, width, height);
 		
 		// draw playfield @TODO: finish this later and make the playfield scaling actually work
+		/*
 		g.setColor(Color.GREEN);
 		g.drawRect
 		(
@@ -116,18 +118,26 @@ public class Game implements Runnable
 			(int)(UI.getScreenVector().x),
 			(int)(UI.getScreenVector().y)
 		);
+		*/
 		
 		// draw mania judgement line @TODO: implement a graphical transition from mode to mode
 		g.setColor(Color.GREEN);
-		g.drawLine(this.width / 2 - 90, this.height - 100, this.width / 2 + 90, this.height - 100);
+		g.drawLine
+		(
+			this.width / 2 - (int)UI.getJudgementLine().x / 2,
+			(int)UI.getJudgementLine().y,
+			this.width / 2 + (int)UI.getJudgementLine().x / 2,
+			(int)UI.getJudgementLine().y
+		);
 		
 		// draw debug strings
-		g.setColor(Color.WHITE);
 		g.setFont(new Font("Consolas", Font.PLAIN, 12));
+		g.drawString("M A N I A", this.width / 2 - 30, (int)UI.getJudgementLine().y + 20);
 		g.drawString("FPS: " + Double.toString(_fps), 0, 10);
-		g.drawString("ms:  " + Double.toString(AudioPlayer.getPosition(beatmap.song)), 0, 20);
+		g.drawString("ms:  " + Long.toString(this.beatmap.song.position), 0, 20);
 		
 		beatmap.render(this.ui);
+		cursor.render();
 		
 		// inputOverlay.render(this.ui);
 		

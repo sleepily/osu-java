@@ -62,7 +62,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.calculateAlphaFadeIn();
 		*/
 		
-		if (AudioPlayer.getPosition(this.game.beatmap.song) >= this.getDisposeTime())
+		if (this.game.beatmap.song.position >= this.getDisposeTime())
 			this.dispose = true;
 		
 		if (!isHit)
@@ -82,8 +82,8 @@ public class OsuHitCircle extends OsuHitObject
 	
 	public void render(UI ui)
 	{
-		// dont render before fade in time to save ressources
-		if (AudioPlayer.getPosition(this.game.beatmap.song) < time_start_fadeIn)
+		// dont render before fade in time to save resources
+		if (this.game.beatmap.song.position < time_start_fadeIn)
 			return;
 			
 		if (!isHit)
@@ -109,7 +109,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
-			CircleSize.circleSize_hitCircle(game.CircleSize),
+			CircleSize.circleSize_hitCircle(this) * 2,
 			this.alpha
 		);
 	
@@ -118,7 +118,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
-			CircleSize.circleSize_hitCircle(game.CircleSize),
+			CircleSize.circleSize_hitCircle(this) * 2,
 			this.alpha
 		);
 	
@@ -127,7 +127,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
-			Utils.mapAndClamp((float)CircleSize.circleSize_hitCircle(game.CircleSize), 20, 120,.4f, 1f),
+			Utils.mapAndClamp((float)CircleSize.circleSize_hitCircle(this), 20, 120,.4f, 2f),
 			this.alpha
 		);
 	
@@ -136,7 +136,7 @@ public class OsuHitCircle extends OsuHitObject
 			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
-			CircleSize.circleSize_approachCircle(game.CircleSize, game.ApproachRate, AudioPlayer.getPosition(this.game.beatmap.song), this.time),
+			CircleSize.circleSize_approachCircle(this) * 2,
 			this.alpha
 		);
 	}
@@ -144,14 +144,14 @@ public class OsuHitCircle extends OsuHitObject
 	protected void playSample()
 	{
 		this.samplePlayed = true;
-		AudioPlayer.play(this.sample);
+		AudioPlayer.play(handler, this.sample);
 	}
 	
 	protected void calculateAlphaFadeIn()
 	{
 		this.alpha = Utils.mapAndClamp
 		(
-			AudioPlayer.getPosition(this.game.beatmap.song),
+			this.game.beatmap.song.position,
 			Timings.getTimeForCircle_fadeIn(game.ApproachRate, this.time),
 			Timings.getTimeForCircle_visible(game.ApproachRate, this.time),
 			0,

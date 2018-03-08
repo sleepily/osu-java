@@ -2,6 +2,7 @@ package com.sleepingdreamlessly.osu.input.mouse;
 
 import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.input.InputManager;
+import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.utils.Vector2;
 
 import java.awt.event.MouseEvent;
@@ -83,6 +84,6 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	{
 		this.move = true;
 		
-		this.pos = new Vector2(e.getPoint().x, e.getPoint().y);
+		this.pos = new Vector2(e.getPoint().x, e.getPoint().y).sub(UI.getPlayfieldPadding());
 	}
 }

@@ -97,7 +97,7 @@ public class ManiaHitObject extends HitObject
 		this.pos.y = (int)
 			Utils.map
 			(
-				(float)this.game.getTime_rel_current_ms(),
+				(float)this.game.beatmap.song.position,
 				(float)(this.time - (10000f / UI.getScrollSpeed())),
 				(float)this.time,
 				(float)-50,

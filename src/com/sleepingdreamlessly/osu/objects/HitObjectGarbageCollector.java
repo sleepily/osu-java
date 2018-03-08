@@ -33,7 +33,7 @@ public class HitObjectGarbageCollector
 	
 	private void garbageCollection()
 	{
-		if (time_garbageCollection_interval_ms <= AudioPlayer.getPosition(handler.getGame().beatmap.song) - time_garbageCollection_last)
+		if (time_garbageCollection_interval_ms <= handler.getGame().beatmap.song.position - time_garbageCollection_last)
 		{
 			garbageCollection_inProgress = true;
 			

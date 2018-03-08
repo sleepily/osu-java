@@ -1,12 +1,14 @@
 package com.sleepingdreamlessly.osu.audio;
 
+import com.sleepingdreamlessly.osu.Handler;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class AudioPlayer
 {
-	public static synchronized void play(AudioClip input)
+	public static synchronized void play(Handler handler, AudioClip input)
 	{
 		new Thread(() ->
 		{
@@ -25,9 +27,10 @@ public class AudioPlayer
 			}
 		})
 		.start();
+		input.startTime = handler.getGame().getTime_rel_current_ms();
 	}
 	
-	public static long getPosition(AudioClip input)
+	public static long getPosition(Handler handler, AudioClip input)
 	{
 		try
 		{
@@ -35,7 +38,12 @@ public class AudioPlayer
 			
 			Clip clip = AudioSystem.getClip();
 			
-			return Math.round(clip.getMicrosecondPosition() / 1000);
+			long position = Math.round(clip.getMicrosecondPosition() / 1000);
+			
+			if (position != 0)
+				return position;
+			
+			return handler.getGame().getTime_rel_current_ms() - input.startTime;
 		}
 		catch (Exception e)
 		{

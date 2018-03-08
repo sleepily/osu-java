@@ -15,6 +15,7 @@ public class BeatmapConverter
 	public static void readHitObjectsFromLines(ArrayList<ArrayList<String>> lines, Beatmap b)
 	{
 		int combo = 0;
+		long offset = b.handler.getGame().offset;
 		
 		for (ArrayList<String> line: lines)
 		{
@@ -28,8 +29,16 @@ public class BeatmapConverter
 			
 			combo++;
 			
-			b._hitobjects.add(new OsuHitCircle(b.handler, "hitcircle", x, y, time, combo));
+			b._hitobjects.add(new OsuHitCircle(b.handler, "hitcircle", x, y, time + b.AudioLeadIn + offset, combo));
 		}
+	}
+	
+	public static void readGeneralInformationFromLines(ArrayList<ArrayList<String>> lines, Beatmap b)
+	{
+		b.AudioFilename = lines.get(0).get(1);
+		b.AudioLeadIn = Long.valueOf(lines.get(1).get(1));
+		b.PreviewTime = Long.valueOf(lines.get(2).get(1));
+		b.Countdown = (Integer.valueOf(lines.get(3).get(1)) == 1);
 	}
 	
 	public static void readDummy(Beatmap b)
