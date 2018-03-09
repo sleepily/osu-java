@@ -37,6 +37,9 @@ public class Game implements Runnable
 	public Beatmap beatmap;
 	public HitObjectGarbageCollector garbageCollector;
 	
+	public boolean noAudioDevice = false;
+	public boolean noAudioDeviceMessageShown = false;
+	
 	private long time_init = System.nanoTime();
 	private long time_init_ms = time_init / 1000000;
 	private long time_current = time_init;

@@ -71,6 +71,12 @@ public class AudioClip
 	
 	public void tick(Handler handler)
 	{
-		this.position = AudioPlayer.getPosition(handler, this);
+		if (!handler.getGame().noAudioDevice)
+		{
+			this.position = AudioPlayer.getPosition(handler, this);
+			return;
+		}
+		
+		this.position = handler.getGame().getTime_rel_current_ms() - this.startTime;
 	}
 }

@@ -23,10 +23,12 @@ public class AudioPlayer
 			}
 			catch (Exception e)
 			{
-				System.err.println(e.getMessage());
+				// System.err.println(e.getMessage());
+				handler.getGame().noAudioDevice = true;
 			}
 		})
 		.start();
+		
 		input.startTime = handler.getGame().getTime_rel_current_ms();
 	}
 	
@@ -47,9 +49,19 @@ public class AudioPlayer
 		}
 		catch (Exception e)
 		{
-			System.err.println(e.getMessage());
+			// Not printing this error every time since it would flood the log
+			// System.err.println(e.getMessage());
 		}
 		
 		return 0;
+	}
+	
+	private void noAudioDeviceMessage(Handler handler)
+	{
+		if (handler.getGame().noAudioDeviceMessageShown)
+			return;
+		
+		handler.getGame().noAudioDeviceMessageShown = true;
+		System.err.println("No audio device found. Will use system clock.");
 	}
 }
