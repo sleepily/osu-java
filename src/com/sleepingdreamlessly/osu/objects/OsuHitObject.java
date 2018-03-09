@@ -48,7 +48,6 @@ public class OsuHitObject extends HitObject
 		
 		this.scale = (float)CircleSize.circleScale_hitCircle(this); //(float)((1.0f - 0.7f * (this.CS - 5) / 5) / 2);
 		this.radius = OBJECT_RADIUS * scale;
-		System.out.println(this.scale);
 	}
 	
 	public boolean keyDown()
@@ -95,7 +94,6 @@ public class OsuHitObject extends HitObject
 			comboEndString = "k";
 		
 		this.judgementSprite = Assets.getSprite(String.format("hit%s%s", this.judgement, comboEndString));
-		System.out.println(this.judgement);
 	}
 	
 	public void tick()
