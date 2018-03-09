@@ -14,7 +14,6 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	public InputManager inputManager;
 	
 	public boolean[] mouseButtons = new boolean[4];
-	public boolean[] mouseButtonsClicked = new boolean[4];
 	public boolean enter, exit = false;
 	public boolean move = false;
 	
@@ -25,14 +24,15 @@ public class MouseManager implements MouseListener, MouseMotionListener
 		for (int m = 0; m < 3; m++)
 		{
 			mouseButtons[m] = false;
-			mouseButtonsClicked[m] = false;
 		}
 	}
 	
 	public void tick()
 	{
+		/*
 		for (int m = 0; m < mouseButtons.length; m++)
-			mouseButtonsClicked[m] = false;
+			mouseButtons[m] = false;
+			*/
 		
 		this.move = false;
 	}
@@ -40,25 +40,19 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		this.mouseButtonsClicked[e.getButton()] = true;
-		
-		// System.out.println("Mouse button " + e.getButton() + " clicked.");
+
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
 		this.mouseButtons[e.getButton()] = true;
-		
-		// System.out.println("Mouse button " + e.getButton() + " held.");
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
 		this.mouseButtons[e.getButton()] = false;
-		
-		// System.out.println("Mouse button " + e.getButton() + " released.");
 	}
 	
 	@Override

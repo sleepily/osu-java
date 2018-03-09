@@ -15,16 +15,22 @@ public class Input
 		this.release = false;
 	}
 	
-	public void update(boolean bindingIsActive)
+	public void update(boolean active)
 	{
-		if (!bindingIsActive)
+		if (!active)
 		{
 			this.click = false;
 			this.hold = false;
-			this.release = true;
+			
+			if (this.release)
+				this.release = false;
+			else
+				this.release = true;
+			
 			return;
 		}
 		
+		// set to hold if already clicked
 		if (this.click)
 		{
 			this.click = false;
@@ -33,7 +39,9 @@ public class Input
 			return;
 		}
 		
-		this.hold = true;
+		// set to click if not yet clicked
+		this.click = true;
+		this.hold = false;
 		this.release = false;
 	}
 }

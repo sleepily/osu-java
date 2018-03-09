@@ -43,12 +43,19 @@ public class InputManager
 		std_right = new Input("std_right");
 		
 		maniaKeys = new Input[6];
-		maniaKeys[0] = new Input("mania_0");
-		maniaKeys[1] = new Input("mania_1");
-		maniaKeys[2] = new Input("mania_2");
-		maniaKeys[3] = new Input("mania_3");
-		maniaKeys[4] = new Input("mania_fx_l");
-		maniaKeys[5] = new Input("mania_fx_r");
+		mania_0 = new Input("mania_0");
+		mania_1 = new Input("mania_1");
+		mania_2 = new Input("mania_2");
+		mania_3 = new Input("mania_3");
+		mania_fx_l = new Input("mania_fx_l");
+		mania_fx_r = new Input("mania_fx_r");
+		
+		maniaKeys[0] = mania_0;
+		maniaKeys[1] = mania_1;
+		maniaKeys[2] = mania_2;
+		maniaKeys[3] = mania_3;
+		maniaKeys[4] = mania_fx_l;
+		maniaKeys[5] = mania_fx_r;
 		
 		mania_vol_l_counter = new Input("mania_vol_l_counter");
 		mania_vol_l_clock = new Input("mania_vol_l_clock");
@@ -64,7 +71,7 @@ public class InputManager
 		updateKeys();
 	}
 	
-	private void updateKeys()
+	public void updateKeys()
 	{
 		this.std_mouse_left		.update(mouseManager.mouseButtons[1]);
 		this.std_mouse_right	.update(mouseManager.mouseButtons[2]);
