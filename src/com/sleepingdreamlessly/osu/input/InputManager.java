@@ -15,11 +15,11 @@ public class InputManager
 	public MouseManager mouseManager;
 	public MidiManager midiManager;
 	
-	public boolean std_mouse_left, std_mouse_right;
-	public boolean std_left, std_right;
-	public boolean mania_0, mania_1, mania_2, mania_3, mania_fx_l, mania_fx_r;
-	public boolean[] maniaKeys;
-	public boolean mania_vol_l_counter, mania_vol_l_clock, mania_vol_r_counter, mania_vol_r_clock;
+	public Input std_mouse_left, std_mouse_right;
+	public Input std_left, std_right;
+	public Input mania_0, mania_1, mania_2, mania_3, mania_fx_l, mania_fx_r;
+	public Input[] maniaKeys;
+	public Input mania_vol_l_counter, mania_vol_l_clock, mania_vol_r_counter, mania_vol_r_clock;
 	
 	public InputManager(Handler handler)
 	{
@@ -37,9 +37,23 @@ public class InputManager
 		handler.getGame().getDisplay().getCanvas().addMouseMotionListener(mouseManager);
 		// midiManager.init(); //@TODO: continue MIDI implementation
 		
-		maniaKeys = new boolean[6];
-		for (int b = 0; b < maniaKeys.length; b++)
-			maniaKeys[b] = false;
+		std_mouse_left = new Input("std_mouse_left");
+		std_mouse_right = new Input("std_mouse_right");
+		std_left = new Input("std_left");
+		std_right = new Input("std_right");
+		
+		maniaKeys = new Input[6];
+		maniaKeys[0] = new Input("mania_0");
+		maniaKeys[1] = new Input("mania_1");
+		maniaKeys[2] = new Input("mania_2");
+		maniaKeys[3] = new Input("mania_3");
+		maniaKeys[4] = new Input("mania_fx_l");
+		maniaKeys[5] = new Input("mania_fx_r");
+		
+		mania_vol_l_counter = new Input("mania_vol_l_counter");
+		mania_vol_l_clock = new Input("mania_vol_l_clock");
+		mania_vol_r_counter = new Input("mania_vol_r_counter");
+		mania_vol_r_clock = new Input("mania_vol_r_clock");
 	}
 	
 	public void tick()
@@ -52,22 +66,22 @@ public class InputManager
 	
 	private void updateKeys()
 	{
-		this.std_mouse_left = mouseManager.mouseButtons[1];
-		this.std_mouse_right = mouseManager.mouseButtons[2];
+		this.std_mouse_left		.update(mouseManager.mouseButtons[1]);
+		this.std_mouse_right	.update(mouseManager.mouseButtons[2]);
 		
 		//@TODO: make these interchangeable with midi input
-		this.std_left   = keyboardManager.keys[KeyEvent.VK_X];
-		this.std_right  = keyboardManager.keys[KeyEvent.VK_C];
-		this.mania_0    = keyboardManager.keys[KeyEvent.VK_D];
-		this.mania_1    = keyboardManager.keys[KeyEvent.VK_F];
-		this.mania_2    = keyboardManager.keys[KeyEvent.VK_J];
-		this.mania_3    = keyboardManager.keys[KeyEvent.VK_K];
-		this.mania_vol_l_counter  = keyboardManager.keys[KeyEvent.VK_Q];
-		this.mania_vol_l_clock    = keyboardManager.keys[KeyEvent.VK_W];
-		this.mania_vol_r_counter  = keyboardManager.keys[KeyEvent.VK_O];
-		this.mania_vol_r_clock    = keyboardManager.keys[KeyEvent.VK_P];
-		this.mania_fx_l = keyboardManager.keys[KeyEvent.VK_V];
-		this.mania_fx_r = keyboardManager.keys[KeyEvent.VK_N];
+		this.std_left		.update(keyboardManager.keys[KeyEvent.VK_X]);
+		this.std_right	.update(keyboardManager.keys[KeyEvent.VK_C]);
+		this.mania_0    .update(keyboardManager.keys[KeyEvent.VK_D]);
+		this.mania_1    .update(keyboardManager.keys[KeyEvent.VK_F]);
+		this.mania_2    .update(keyboardManager.keys[KeyEvent.VK_J]);
+		this.mania_3    .update(keyboardManager.keys[KeyEvent.VK_K]);
+		this.mania_fx_l .update(keyboardManager.keys[KeyEvent.VK_V]);
+		this.mania_fx_r .update(keyboardManager.keys[KeyEvent.VK_N]);
+		this.mania_vol_l_counter  .update(keyboardManager.keys[KeyEvent.VK_Q]);
+		this.mania_vol_l_clock    .update(keyboardManager.keys[KeyEvent.VK_W]);
+		this.mania_vol_r_counter  .update(keyboardManager.keys[KeyEvent.VK_O]);
+		this.mania_vol_r_clock    .update(keyboardManager.keys[KeyEvent.VK_P]);
 		
 		this.maniaKeys[0] = this.mania_0;
 		this.maniaKeys[1] = this.mania_1;
