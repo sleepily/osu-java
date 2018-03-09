@@ -76,7 +76,6 @@ public class InputManager
 		this.std_mouse_left		.update(mouseManager.mouseButtons[1]);
 		this.std_mouse_right	.update(mouseManager.mouseButtons[2]);
 		
-		//@TODO: make these interchangeable with midi input
 		this.std_left		.update(keyboardManager.keys[KeyEvent.VK_X]);
 		this.std_right	.update(keyboardManager.keys[KeyEvent.VK_C]);
 		this.mania_0    .update(keyboardManager.keys[KeyEvent.VK_D]);

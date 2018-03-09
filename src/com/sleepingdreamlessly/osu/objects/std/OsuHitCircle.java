@@ -57,10 +57,8 @@ public class OsuHitCircle extends OsuHitObject
 	{
 		this.keyDown();
 		
-		/*
-		if (AudioPlayer.getPosition(this.game.beatmap.song) <= this.time)
+		if (this.game.beatmap.song.position <= this.time)
 			this.calculateAlphaFadeIn();
-		*/
 		
 		if (this.game.beatmap.song.position >= this.getDisposeTime())
 			this.dispose = true;

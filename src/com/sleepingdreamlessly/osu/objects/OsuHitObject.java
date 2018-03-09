@@ -56,8 +56,10 @@ public class OsuHitObject extends HitObject
 			return false;
 		
 		boolean key =
-			handler.getInputManager().std_left.click || handler.getInputManager().std_right.click
-			|| handler.getInputManager().std_mouse_left.click || handler.getInputManager().std_mouse_left.click;
+			handler.getInputManager().std_left      .click  ||
+			handler.getInputManager().std_right     .click  ||
+			handler.getInputManager().std_mouse_left.click  ||
+			handler.getInputManager().std_mouse_left.click;
 		
 		if (!key)
 			return false;
@@ -87,6 +89,8 @@ public class OsuHitObject extends HitObject
 		this.time_hit = this.game.beatmap.song.position;
 		
 		this.judgement = OsuJudgement.getJudgement(this);
+		
+		this.handler.getInputManager().tick();
 		
 		String comboEndString = ""; // geki (perfect combo) / katu (combo end)
 		

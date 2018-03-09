@@ -47,7 +47,7 @@ public class Game implements Runnable
 	private long time_rel_current = 0;
 	private long time_rel_current_ms = 0;
 	
-	public long offset = -1000;
+	public long offset = -1250;
 	
 	public int gamemode = 3;
 	public double ApproachRate = 9.6, CircleSize = 4, OverallDifficulty = 4, HPDrainRate = 6;
@@ -78,7 +78,6 @@ public class Game implements Runnable
 		garbageCollector = new HitObjectGarbageCollector(handler);
 		
 		beatmap = new Beatmap(handler, "140662 cYsmix feat. Emmy - Tear Rain", "cYsmix feat. Emmy - Tear Rain (jonathanlfj) [Insane].osu");
-		beatmap.start();
 	}
 	
 	private void tick()
@@ -98,7 +97,9 @@ public class Game implements Runnable
 	private void render()
 	{
 		bs = display.getCanvas().getBufferStrategy();
-		if(bs == null){
+		
+		if (bs == null)
+		{
 			display.getCanvas().createBufferStrategy(3);
 			return;
 		}
@@ -148,6 +149,8 @@ public class Game implements Runnable
 		{
 			graphicsready = true;
 			display.show();
+			
+			beatmap.start();
 		}
 		
 		//clean up
@@ -271,21 +274,6 @@ public class Game implements Runnable
 		this.time_current_ms = System.nanoTime() / 1000000;
 		this.time_rel_current = this.time_current - this.time_init;
 		this.time_rel_current_ms = this.time_current_ms - this.time_init_ms;
-	}
-
-	public long getTime_current()
-	{
-		return time_current;
-	}
-
-	public long getTime_current_ms()
-	{
-		return time_current_ms;
-	}
-
-	public long getTime_rel_current()
-	{
-		return time_rel_current;
 	}
 
 	public long getTime_rel_current_ms()

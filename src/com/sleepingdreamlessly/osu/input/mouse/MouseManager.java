@@ -29,12 +29,17 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	
 	public void tick()
 	{
-		/*
 		for (int m = 0; m < mouseButtons.length; m++)
 			mouseButtons[m] = false;
-			*/
 		
 		this.move = false;
+	}
+	
+	private void move(MouseEvent e)
+	{
+		this.move = true;
+		
+		this.pos = new Vector2(e.getPoint().x, e.getPoint().y).sub(UI.getPlayfieldPadding());
 	}
 	
 	@Override
@@ -70,14 +75,12 @@ public class MouseManager implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-	
+		this.move(e);
 	}
 	
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-		this.move = true;
-		
-		this.pos = new Vector2(e.getPoint().x, e.getPoint().y).sub(UI.getPlayfieldPadding());
+		this.move(e);
 	}
 }
