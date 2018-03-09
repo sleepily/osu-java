@@ -56,8 +56,8 @@ public class OsuHitObject extends HitObject
 			return false;
 		
 		boolean key =
-			handler.getInputManager().std_left || handler.getInputManager().std_right
-			|| handler.getInputManager().std_mouse_left || handler.getInputManager().std_mouse_left;
+			handler.getInputManager().std_left.click || handler.getInputManager().std_right.click
+			|| handler.getInputManager().std_mouse_left.click || handler.getInputManager().std_mouse_left.click;
 		
 		if (!key)
 			return false;

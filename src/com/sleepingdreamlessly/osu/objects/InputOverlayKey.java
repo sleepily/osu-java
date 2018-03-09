@@ -33,10 +33,10 @@ public class InputOverlayKey
 	public void tick()
 	{
 		isActive =
-			(this.inputID.equals("std_left"))         ? handler.getInputManager().std_left :
-			(this.inputID.equals("std_right"))        ? handler.getInputManager().std_right :
-			(this.inputID.equals("std_mouse_left"))   ? handler.getInputManager().std_mouse_left :
-			(this.inputID.equals("std_mouse_right"))  ? handler.getInputManager().std_mouse_right :
+			(this.inputID.equals("std_left"))         ? handler.getInputManager().std_left				.hold :
+			(this.inputID.equals("std_right"))        ? handler.getInputManager().std_right				.hold :
+			(this.inputID.equals("std_mouse_left"))   ? handler.getInputManager().std_mouse_left	.hold :
+			(this.inputID.equals("std_mouse_right"))  ? handler.getInputManager().std_mouse_right	.hold :
 				false;
 	}
 	
