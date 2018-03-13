@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="com.googlecode.soundlibs:tritonus-share:0.3.7.4" type="repository">
+    <properties maven-id="com.googlecode.soundlibs:tritonus-share:0.3.7.4" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/tritonus-share-0.3.7.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

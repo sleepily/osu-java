@@ -1,7 +1,6 @@
 package com.sleepingdreamlessly.osu.objects;
 
 import com.sleepingdreamlessly.osu.Handler;
-import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 
 import java.util.ArrayList;
 

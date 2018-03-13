@@ -3,7 +3,6 @@ package com.sleepingdreamlessly.osu.beatmaps;
 import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.audio.AudioClip;
-import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.objects.GameObject;
 import com.sleepingdreamlessly.osu.objects.HitObject;
 import com.sleepingdreamlessly.osu.rulesets.UI;
@@ -51,7 +50,7 @@ public class Beatmap
 	public void start()
 	{
 		this.starttime = handler.getGame().getTime_rel_current_ms();
-		AudioPlayer.play(handler, song);
+		this.song.play();
 	}
 	
 	public void tick()

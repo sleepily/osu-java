@@ -2,7 +2,6 @@ package com.sleepingdreamlessly.osu.objects.std;
 
 import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.assets.Assets;
-import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.objects.OsuHitObject;
 import com.sleepingdreamlessly.osu.rulesets.judgement.OsuJudgement;
@@ -137,7 +136,7 @@ public class OsuHitCircle extends OsuHitObject
 	protected void playSample()
 	{
 		this.samplePlayed = true;
-		AudioPlayer.play(handler, this.sample);
+		this.sample.play();
 	}
 	
 	protected void calculateAlphaFadeIn()

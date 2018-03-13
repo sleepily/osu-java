@@ -2,7 +2,6 @@ package com.sleepingdreamlessly.osu.objects;
 
 import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.audio.AudioClip;
-import com.sleepingdreamlessly.osu.audio.AudioPlayer;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 import com.sleepingdreamlessly.osu.rulesets.UI;
 import com.sleepingdreamlessly.osu.utils.Vector2;
