@@ -34,8 +34,8 @@ public class InputOverlay extends GameObject
 	
 	public void render(UI ui)
 	{
-		this.sprite.drawCenteredWithScale(
-			this.game,
+		this.sprite.drawCenteredWithScale
+		(
 			(int)(pos.x),
 			(int)(pos.y),
 			1f,

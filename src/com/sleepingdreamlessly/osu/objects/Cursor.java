@@ -26,6 +26,6 @@ public class Cursor extends GameObject
 	
 	public void render()
 	{
-		this.sprite.drawCenteredWithScale(handler.getGame(), (int)pos.x, (int)pos.y, this.scale, 1f);
+		this.sprite.drawCenteredWithScale((int)pos.x, (int)pos.y, this.scale, 1f);
 	}
 }

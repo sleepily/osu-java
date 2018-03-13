@@ -46,10 +46,10 @@ public class InputOverlayKey
 		
 		if (!isActive)
 		{
-			this.sprite.drawCenteredWithScale(handler.getGame(), (int)pos.x, (int)pos.y, 1f, 1f);
+			this.sprite.drawCenteredWithScale((int)pos.x, (int)pos.y, 1f, 1f);
 			return;
 		}
 		
-		this.sprite.drawCenteredWithScale(handler.getGame(), (int)pos.x, (int)pos.y, .9f, 1f);
+		this.sprite.drawCenteredWithScale((int)pos.x, (int)pos.y, .9f, 1f);
 	}
 }

@@ -1,6 +1,6 @@
 package com.sleepingdreamlessly.osu.assets;
 
-import com.sleepingdreamlessly.osu.Game;
+import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.audio.AudioClip;
 import com.sleepingdreamlessly.osu.graphics.Sprite;
 
@@ -47,51 +47,51 @@ public class Assets
 		
 	}
 	
-	public static void init(Game game)
+	public static void init(Handler handler)
 	{
-		cursor 				          = new Sprite(game, "cursor");                   _sprites.add(cursor);
-		cursortrail             = new Sprite(game, "cursortrail");              _sprites.add(cursortrail);
-		inputoverlay_background = new Sprite(game, "inputoverlay-background");  _sprites.add(inputoverlay_background);
-		inputoverlay_key        = new Sprite(game, "inputoverlay-key");         _sprites.add(inputoverlay_key);
+		cursor 				          = new Sprite(handler, "cursor");                   _sprites.add(cursor);
+		cursortrail             = new Sprite(handler, "cursortrail");              _sprites.add(cursortrail);
+		inputoverlay_background = new Sprite(handler, "inputoverlay-background");  _sprites.add(inputoverlay_background);
+		inputoverlay_key        = new Sprite(handler, "inputoverlay-key");         _sprites.add(inputoverlay_key);
 		
 		// std
-		hitcircle 				= new Sprite(game, "hitcircle");        _sprites.add(hitcircle);
-		approachcircle		= new Sprite(game, "approachcircle");   _sprites.add(approachcircle);
-		hitcircleoverlay 	= new Sprite(game, "hitcircleoverlay"); _sprites.add(hitcircleoverlay);
+		hitcircle 				= new Sprite(handler, "hitcircle");        _sprites.add(hitcircle);
+		approachcircle		= new Sprite(handler, "approachcircle");   _sprites.add(approachcircle);
+		hitcircleoverlay 	= new Sprite(handler, "hitcircleoverlay"); _sprites.add(hitcircleoverlay);
 		
-		std_hit0          = new Sprite(game, "hit0");             _sprites.add(std_hit0);
-		std_hit50         = new Sprite(game, "hit50");            _sprites.add(std_hit50);
-		std_hit50k        = new Sprite(game, "hit50k");           _sprites.add(std_hit50k);
-		std_hit100        = new Sprite(game, "hit100");           _sprites.add(std_hit100);
-		std_hit100k       = new Sprite(game, "hit100k");          _sprites.add(std_hit100k);
-		std_hit300        = new Sprite(game, "hit300");           _sprites.add(std_hit300);
-		std_hit300k       = new Sprite(game, "hit300k");          _sprites.add(std_hit300k);
-		std_hit300g       = new Sprite(game, "hit300g");          _sprites.add(std_hit300g);
+		std_hit0          = new Sprite(handler, "hit0");             _sprites.add(std_hit0);
+		std_hit50         = new Sprite(handler, "hit50");            _sprites.add(std_hit50);
+		std_hit50k        = new Sprite(handler, "hit50k");           _sprites.add(std_hit50k);
+		std_hit100        = new Sprite(handler, "hit100");           _sprites.add(std_hit100);
+		std_hit100k       = new Sprite(handler, "hit100k");          _sprites.add(std_hit100k);
+		std_hit300        = new Sprite(handler, "hit300");           _sprites.add(std_hit300);
+		std_hit300k       = new Sprite(handler, "hit300k");          _sprites.add(std_hit300k);
+		std_hit300g       = new Sprite(handler, "hit300g");          _sprites.add(std_hit300g);
 		
 		// mania
-		note              = new Sprite(game, "note");             _sprites.add(note);
-		mania_hit0        = new Sprite(game, "mania-hit0");       _sprites.add(mania_hit0);
-		mania_hit50       = new Sprite(game, "mania-hit50");      _sprites.add(mania_hit50);
-		mania_hit100      = new Sprite(game, "mania-hit100");     _sprites.add(mania_hit100);
-		mania_hit200      = new Sprite(game, "mania-hit200");     _sprites.add(mania_hit200);
-		mania_hit300      = new Sprite(game, "mania-hit300");     _sprites.add(mania_hit300);
-		mania_hit300g     = new Sprite(game, "mania-hit300g");    _sprites.add(mania_hit300g);
+		note              = new Sprite(handler, "note");             _sprites.add(note);
+		mania_hit0        = new Sprite(handler, "mania-hit0");       _sprites.add(mania_hit0);
+		mania_hit50       = new Sprite(handler, "mania-hit50");      _sprites.add(mania_hit50);
+		mania_hit100      = new Sprite(handler, "mania-hit100");     _sprites.add(mania_hit100);
+		mania_hit200      = new Sprite(handler, "mania-hit200");     _sprites.add(mania_hit200);
+		mania_hit300      = new Sprite(handler, "mania-hit300");     _sprites.add(mania_hit300);
+		mania_hit300g     = new Sprite(handler, "mania-hit300g");    _sprites.add(mania_hit300g);
 		
 		// fonts
 		for (int i = 0; i < 10; i++)
 		{
-			font_default_numbers[i] = new Sprite(game, name_font_default  + "-" + Integer.toString(i));
-			font_combo_numbers[i]   = new Sprite(game, name_font_combo    + "-" + Integer.toString(i));
-			font_score_numbers[i]   = new Sprite(game, name_font_score    + "-" + Integer.toString(i));
+			font_default_numbers[i] = new Sprite(handler, name_font_default  + "-" + Integer.toString(i));
+			font_combo_numbers[i]   = new Sprite(handler, name_font_combo    + "-" + Integer.toString(i));
+			font_score_numbers[i]   = new Sprite(handler, name_font_score    + "-" + Integer.toString(i));
 			
 			_sprites.add(font_default_numbers[i]);
 			_sprites.add(font_combo_numbers[i]);
 			_sprites.add(font_score_numbers[i]);
 		}
 		
-		font_score_comma    = new Sprite(game, name_font_score + "-" + "comma");
-		font_score_dot      = new Sprite(game, name_font_score + "-" + "dot");
-		font_score_percent  = new Sprite(game, name_font_score + "-" + "percent");
+		font_score_comma    = new Sprite(handler, name_font_score + "-" + "comma");
+		font_score_dot      = new Sprite(handler, name_font_score + "-" + "dot");
+		font_score_percent  = new Sprite(handler, name_font_score + "-" + "percent");
 		
 		// sounds
 		for (int s = 0; s < 4; s++)
@@ -106,9 +106,9 @@ public class Assets
 				(s == 3) ?
 					"clap"    : "";
 			
-			hitsounds[0][s] = new AudioClip("soft-hit"    + soundName); _samples.add(hitsounds[0][s]);
-			hitsounds[1][s] = new AudioClip("normal-hit"  + soundName); _samples.add(hitsounds[1][s]);
-			hitsounds[2][s] = new AudioClip("drum-hit"    + soundName); _samples.add(hitsounds[2][s]);
+			hitsounds[0][s] = new AudioClip(handler, "soft-hit"    + soundName); _samples.add(hitsounds[0][s]);
+			hitsounds[1][s] = new AudioClip(handler, "normal-hit"  + soundName); _samples.add(hitsounds[1][s]);
+			hitsounds[2][s] = new AudioClip(handler, "drum-hit"    + soundName); _samples.add(hitsounds[2][s]);
 		}
 	}
 	

@@ -45,7 +45,7 @@ public class Beatmap
 			BeatmapProcessor.getHitObjectLinesFromOsuFile(this.file), this
 		);
 		
-		this.song = new AudioClip(dir + "\\" + AudioFilename, true);
+		this.song = new AudioClip(handler, dir + "\\" + AudioFilename, true);
 	}
 	
 	public void start()

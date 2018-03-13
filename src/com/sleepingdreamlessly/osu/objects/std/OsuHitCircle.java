@@ -92,7 +92,6 @@ public class OsuHitCircle extends OsuHitObject
 		
 		this.judgementSprite.drawCenteredWithScale
 		(
-			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
 			1f,
@@ -104,7 +103,6 @@ public class OsuHitCircle extends OsuHitObject
 	{
 		this.sprite.drawCenteredWithSize
 		(
-			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
 			CircleSize.circleSize_hitCircle(this) * 2,
@@ -113,7 +111,6 @@ public class OsuHitCircle extends OsuHitObject
 	
 		this.hitcircleoverlay.drawCenteredWithSize
 		(
-			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
 			CircleSize.circleSize_hitCircle(this) * 2,
@@ -122,7 +119,6 @@ public class OsuHitCircle extends OsuHitObject
 	
 		this.sprite_combo.drawCenteredWithScale
 		(
-			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
 			Utils.mapAndClamp((float)CircleSize.circleSize_hitCircle(this), 20, 120,.4f, 2f),
@@ -131,7 +127,6 @@ public class OsuHitCircle extends OsuHitObject
 	
 		this.approachCircle.drawCenteredWithSize
 		(
-			this.game,
 			(int)(pos.x + ui.getPlayfieldPadding().x),
 			(int)(pos.y + ui.getPlayfieldPadding().y),
 			CircleSize.circleSize_approachCircle(this) * 2,

@@ -68,7 +68,7 @@ public class Game implements Runnable
 		
 		display.createDisplay();
 		
-		Assets.init(this);
+		Assets.init(handler);
 		
 		inputManager = new InputManager(handler);
 		cursor = new Cursor(handler);

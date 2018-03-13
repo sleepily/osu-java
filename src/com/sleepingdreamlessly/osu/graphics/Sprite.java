@@ -1,6 +1,7 @@
 package com.sleepingdreamlessly.osu.graphics;
 
 import com.sleepingdreamlessly.osu.Game;
+import com.sleepingdreamlessly.osu.Handler;
 import com.sleepingdreamlessly.osu.assets.Assets;
 import com.sleepingdreamlessly.osu.utils.ImageLoader;
 import com.sleepingdreamlessly.osu.utils.Utils;
@@ -12,16 +13,16 @@ import java.io.File;
 
 public class Sprite
 {
-	Graphics g;
+	Handler handler;
 	
 	public File f;
 	public String id;
 	public Image i;
 	public int size = 128;
 	
-	public Sprite(Game game, String id)
+	public Sprite(Handler handler, String id)
 	{
-		this.g = game.getGraphics();
+		this.handler = handler;
 		this.id = id;
 		String spritePath = System.getProperty("user.dir") + new Assets().getSkinPath() + (id + ".png");
 		this.f = new File(spritePath);
@@ -33,14 +34,14 @@ public class Sprite
 	
 	//@TODO: rework drawing to use an anchor instead of seperate methods
 	
-	public void drawCenteredWithSize(Game game, int x, int y, double size, float opacity)
+	public void drawCenteredWithSize(int x, int y, double size, float opacity)
 	{
 		Image image_scaled = i.getScaledInstance((int)size, (int)size, Image.SCALE_SMOOTH);
 		
-		draw(game, x, y, image_scaled, opacity);
+		draw(x, y, image_scaled, opacity);
 	}
 	
-	public void drawCenteredWithScale(Game game, int x, int y, double scale, float opacity)
+	public void drawCenteredWithScale(int x, int y, double scale, float opacity)
 	{
 		Image image_scaled =
 			i.getScaledInstance(
@@ -48,16 +49,16 @@ public class Sprite
 				(int)(i.getHeight(null) * scale),
 				Image.SCALE_SMOOTH
 			);
-		draw(game, x, y, image_scaled, opacity);
+		draw(x, y, image_scaled, opacity);
 	}
 	
 	/*
 		draw with rotation referenced from https://stackoverflow.com/questions/8639567/java-rotating-images#8639615
 	 */
 	
-	private void draw(Game game, int x, int y, Image image, float opacity)
+	private void draw(int x, int y, Image image, float opacity)
 	{
-		Graphics2D g2 = (Graphics2D) game.getGraphics();
+		Graphics2D g2 = (Graphics2D) handler.getGame().getGraphics();
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 		
 		g2.drawImage(

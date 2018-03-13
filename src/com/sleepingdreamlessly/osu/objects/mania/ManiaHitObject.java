@@ -41,8 +41,8 @@ public class ManiaHitObject extends HitObject
 	
 	public void render(UI ui)
 	{
-		this.sprite.drawCenteredWithScale(
-			this.game,
+		this.sprite.drawCenteredWithScale
+		(
 			(int)(pos.x),
 			(int)(pos.y),
 			this.scale,
@@ -54,7 +54,6 @@ public class ManiaHitObject extends HitObject
 		
 		this.judgementSprite.drawCenteredWithScale
 		(
-			this.game,
 			(int)(judgementSpriteOffset.x),
 			(int)(judgementSpriteOffset.y),
 			1f,
