@@ -10,6 +10,8 @@ import java.io.File;
 
 public class AudioClip
 {
+	public AudioThread thread;
+	
 	public Clip clip;
 	
 	public String id;
@@ -78,5 +80,13 @@ public class AudioClip
 		}
 		
 		this.position = handler.getGame().getTime_rel_current_ms() - this.startTime;
+	}
+	
+	public void start()
+	{
+		if (this.thread != null)
+			return;;
+			
+		this.thread = new AudioThread(this);
 	}
 }

@@ -10,24 +10,7 @@ public class AudioPlayer
 {
 	public static synchronized void play(Handler handler, AudioClip input)
 	{
-		new Thread(() ->
-		{
-			try
-			{
-				AudioInputStream stream = input.getAudioStream();
-				
-				Clip clip = AudioSystem.getClip();
-				
-				clip.open(stream);
-				clip.start();
-			}
-			catch (Exception e)
-			{
-				// System.err.println(e.getMessage());
-				handler.getGame().noAudioDevice = true;
-			}
-		})
-		.start();
+		input.start();
 		
 		input.startTime = handler.getGame().getTime_rel_current_ms();
 	}
@@ -40,7 +23,11 @@ public class AudioPlayer
 			
 			Clip clip = AudioSystem.getClip();
 			
+			clip.open(stream);
+			
 			long position = Math.round(clip.getMicrosecondPosition() / 1000);
+			
+			System.out.println(position);
 			
 			if (position != 0)
 				return position;
