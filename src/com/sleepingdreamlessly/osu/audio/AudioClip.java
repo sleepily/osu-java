@@ -10,6 +10,8 @@ import java.io.File;
 
 public class AudioClip
 {
+	public Handler handler;
+	
 	public AudioThread thread;
 	
 	public Clip clip;
@@ -21,16 +23,21 @@ public class AudioClip
 	public long startTime;
 	public long position = 0;
 	
-	public AudioClip(String id)
+	public AudioClip(Handler handler, String id)
 	{
-		this.id = id;
-		this.load();
+		this.init(handler, id);
 	}
 	
-	public AudioClip(String id, boolean isSong)
+	public AudioClip(Handler handler, String id, boolean isSong)
 	{
-		this.id = id;
 		this.isSong = isSong;
+		this.init(handler, id);
+	}
+	
+	private void init(Handler handler, String id)
+	{
+		this.handler = handler;
+		this.id = id;
 		this.load();
 	}
 	
@@ -42,12 +49,11 @@ public class AudioClip
 				System.getProperty("user.dir") + Assets.getSkinPath() + id;
 		
 		//@TODO: implement multiple audio formats
-		String audioformat = ".wav";
-		this.file = new File(songPath + audioformat);
+		this.file = this.isSong ? new File(songPath) : new File(songPath + ".wav");
 		
 		if (!this.file.exists())
 		{
-			System.err.println("ERROR >> Couldn't find " + this.id + " song at " + songPath + ".mp3");
+			System.err.println("ERROR >> Couldn't find " + this.id + " song at " + songPath);
 			return null;
 		}
 		
