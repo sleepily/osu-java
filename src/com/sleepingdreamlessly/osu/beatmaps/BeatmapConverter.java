@@ -44,7 +44,11 @@ public class BeatmapConverter
 				combo = 0; // new combo
 			combo++;
 			
-			b._hitobjects.add(new OsuHitCircle(b.handler, "hitcircle", x, y, time + b.AudioLeadIn + offset, combo));
+			if (typeBitmap[1])
+				return; // slider
+			
+			if (typeBitmap[0])
+				b._hitobjects.add(new OsuHitCircle(b.handler, "hitcircle", x, y, time + b.AudioLeadIn + offset, combo));
 		}
 		
 		System.out.println(String.format("Finished converting %s - %s [%s]", b.artist, b.title, b.author));
