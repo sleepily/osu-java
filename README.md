@@ -20,12 +20,10 @@ Also, since many players may not be able to buy expensive controllers or have th
   - spinners
   - mania LN
 - make SDVX/kshootmania beatmaps playable
-- make 
 - MIDI device support: *on hold*
   - use jogwheels (DJ controllers) for SDVX VOL control
   - use launchpad/midifighter for jubeat
 - song/beatmap editor
 - tatacon controller support?
-- touchscreen support
 
 This project began in the mid feb 2018.
