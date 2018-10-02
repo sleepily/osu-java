@@ -27,3 +27,4 @@ Also, since many players may not be able to buy expensive controllers or have th
 - tatacon controller support?
 
 This project began in the mid feb 2018.
+EDIT: This project is currently on hold since I need to revert some changes that lead to the program not working at all. I'll hopefully be able to fix these errors in the next weeks; if I can't, either I'll redo this project from scratch or just throw it away and focus on other things, we'll see.
